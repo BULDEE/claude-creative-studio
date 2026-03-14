@@ -1,6 +1,7 @@
 ---
 name: brand-visuals
 description: Génère des visuels brandés (hero images, illustrations, bannières, OG images) via l'API Gemini (Nano Banana). Détecte automatiquement la DA du projet courant via Tailwind config, CSS variables, brand.json ou CLAUDE.md. Déclenché par 'visual', 'hero image', 'illustration', 'banner', 'OG image', 'brand asset', 'Nano Banana', 'visuel brandé', 'generate image'.
+argument-hint: [asset-type] [subject]
 ---
 
 # Visuels Brandés — Gemini Image API (Nano Banana)

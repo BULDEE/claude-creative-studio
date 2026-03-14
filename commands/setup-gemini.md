@@ -1,3 +1,9 @@
+---
+name: setup-gemini
+description: Configure la clé API Gemini pour la génération d'images avec Nano Banana. Utiliser uniquement sur demande explicite de l'utilisateur.
+disable-model-invocation: true
+---
+
 Guide l'utilisateur pour configurer sa clé API Gemini (gratuite) afin de générer des images avec Nano Banana.
 
 ## Vérification

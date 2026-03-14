@@ -1,6 +1,6 @@
-# 🎨 Claude Creative Studio
+# Claude Creative Studio
 
-Plugin Claude Code pour la création visuelle : logos, visuels brandés, et guides utilisateurs avec screenshots automatiques.
+Plugin Claude Code pour le pipeline complet brand-to-code : logos, visuels brandés, design system React, carrousels LinkedIn/Instagram, et guides utilisateurs automatisés.
 
 ## Installation
 
@@ -17,15 +17,15 @@ claude --plugin-dir /path/to/claude-creative-studio
 
 ## Ce que vous pouvez faire
 
-### 🎯 Créer un logo
+### Créer un logo
 
 ```
 Crée un logo pour "MonEntreprise" dans le secteur santé
 ```
 
-Claude consulte vos références DA, propose 3 pistes créatives, et peut générer des visuels via Nano Banana (Gemini).
+Claude consulte vos références DA, propose 3 pistes créatives, et génère des visuels via Nano Banana (Gemini).
 
-### 🖼️ Générer des visuels brandés
+### Générer des visuels brandés
 
 ```
 Génère un hero image pour la landing page
@@ -33,7 +33,28 @@ Génère un hero image pour la landing page
 
 Claude **détecte automatiquement** la palette de votre projet (Tailwind, CSS, `brand.json`) et génère des visuels cohérents.
 
-### 📖 Créer un guide utilisateur
+### Créer des carrousels LinkedIn/Instagram
+
+```
+Crée un carrousel LinkedIn sur le copywriting
+```
+
+Claude génère un carrousel viral de 10 slides avec hooks psychologiques, visuels brandés par slide, et export `.pptx` pour Canva (ou Figma).
+
+### Lancer le pipeline complet
+
+```
+Lance le brand pipeline pour "MonProduit"
+```
+
+Pipeline en 5 phases avec validation utilisateur à chaque étape :
+1. **Exploration** — 3 directions artistiques
+2. **Brandbook** — direction choisie complète
+3. **Design Tokens** — CSS/JSON/SCSS
+4. **Design System** — composants React + Tailwind preset
+5. **Social Carousels** — carrousels d'acquisition
+
+### Créer un guide utilisateur
 
 ```
 Crée un guide utilisateur de monapp.com avec des screenshots
@@ -41,7 +62,7 @@ Crée un guide utilisateur de monapp.com avec des screenshots
 
 Claude navigue dans l'app via Playwright, capture les écrans, et assemble un guide Markdown complet.
 
-### ⚙️ Configurer Gemini
+### Configurer Gemini
 
 ```
 /claude-creative-studio:setup-gemini
@@ -55,8 +76,14 @@ Configuration guidée de la clé API Gemini (gratuite, 500 images/jour).
 |-----------|------|-------------|
 | `design-logo` | Skill | Création de logos avec références DA |
 | `brand-visuals` | Skill | Visuels brandés avec détection auto de la DA |
+| `social-carousels` | Skill | Carrousels LinkedIn/Instagram viraux (10 slides + export Canva) |
+| `brand-pipeline` | Skill | Pipeline brand-to-code en 5 phases avec validation gates |
 | `app-guide-generator` | Skill | Guides avec screenshots Playwright |
 | `setup-gemini` | Command | Configuration guidée clé Gemini |
+| `art-director` | Agent | Lead créatif, valide la DA (opus) |
+| `visual-designer` | Agent | Génère visuels via Nano Banana (sonnet) |
+| `carousel-copywriter` | Agent | Copywriting carrousels viraux (sonnet) |
+| `design-system-engineer` | Agent | React tokens, composants, Tailwind (sonnet) |
 | `creative-knowledge` | MCP | Accès aux fichiers de référence |
 
 ## Ajouter vos références
@@ -65,8 +92,9 @@ Déposez vos fichiers dans le dossier `knowledge/` du plugin :
 
 ```
 knowledge/
-├── logo-references/    ← PDFs de chartes graphiques, logos existants
-└── brand-assets/       ← Logos finaux, palettes, guidelines
+├── logo-references/        ← PDFs de chartes graphiques, logos existants
+├── brand-assets/           ← Logos finaux, palettes, guidelines
+└── carousel-references/    ← Exemples carrousels, méthodologies copywriting
 ```
 
 Claude les consultera automatiquement lors de la création.
@@ -124,23 +152,42 @@ Le skill `brand-visuals` cherche la palette de couleurs dans cet ordre :
 ```
 claude-creative-studio/
 ├── .claude-plugin/
-│   └── plugin.json           # Manifest du plugin
-├── .mcp.json                 # MCP auto-configuré (knowledge base)
+│   └── plugin.json              # Manifest du plugin
+├── .mcp.json                    # MCP auto-configuré (knowledge base)
 ├── skills/
-│   ├── design-logo/          # Création de logos
+│   ├── design-logo/             # BC: Logo Design
 │   │   └── SKILL.md
-│   ├── brand-visuals/        # Visuels brandés
+│   ├── brand-visuals/           # BC: Brand Visual Production
 │   │   └── SKILL.md
-│   └── app-guide-generator/  # Guides avec screenshots
+│   ├── social-carousels/        # BC: Social Media Acquisition
+│   │   ├── SKILL.md
+│   │   ├── copywriting-rules.md
+│   │   └── hook-strategies.md
+│   ├── brand-pipeline/          # Process Manager (5 phases)
+│   │   ├── SKILL.md
+│   │   ├── phase-templates.md
+│   │   └── brand-json-schema.md
+│   └── app-guide-generator/     # BC: User Documentation
 │       └── SKILL.md
 ├── commands/
-│   └── setup-gemini.md       # Config guidée Gemini
+│   └── setup-gemini.md          # Config guidée Gemini
+├── agents/
+│   ├── art-director.md          # Lead créatif (opus)
+│   ├── visual-designer.md       # Spécialiste Nano Banana (sonnet)
+│   ├── carousel-copywriter.md   # Copywriter carrousels (sonnet)
+│   └── design-system-engineer.md # React/Tailwind/DDD (sonnet)
 ├── knowledge/
-│   ├── logo-references/      # Vos références DA
-│   ├── brand-assets/         # Vos assets finaux
+│   ├── logo-references/         # Références DA
+│   ├── brand-assets/            # Assets finaux
+│   ├── carousel-references/     # Exemples carrousels + méthodologies
 │   └── README.md
-├── README.md
-└── LICENSE
+├── docs/
+│   ├── ARCHITECTURE.md          # Architecture DDD/Clean
+│   └── adr/                     # Architecture Decision Records
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── LICENSE
+└── README.md
 ```
 
 ## Licence

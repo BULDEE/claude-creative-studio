@@ -1,12 +1,13 @@
 {
   "name": "claude-creative-studio",
-  "description": "Creative toolkit for Claude Code: logo design with DA references, branded visuals via Gemini (Nano Banana), and automated user guides with screenshots.",
-  "version": "1.0.0",
+  "description": "Creative toolkit for Claude Code: brand-to-code pipeline with logo design, branded visuals, React design systems, social media carousels, and automated user guides.",
+  "version": "2.0.0",
   "author": {
     "name": "BULDEE",
     "url": "https://github.com/BULDEE"
   },
+  "homepage": "https://github.com/BULDEE/claude-creative-studio#readme",
   "repository": "https://github.com/BULDEE/claude-creative-studio",
   "license": "MIT",
-  "keywords": ["design", "logo", "branding", "visuals", "screenshots", "guide", "nano-banana", "gemini"]
+  "keywords": ["design", "logo", "branding", "visuals", "carousel", "linkedin", "instagram", "design-system", "nano-banana", "gemini", "creative"]
 }
