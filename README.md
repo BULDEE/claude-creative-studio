@@ -181,6 +181,10 @@ claude-creative-studio/
 │   ├── brand-assets/            # Assets finaux
 │   ├── carousel-references/     # Exemples carrousels + méthodologies
 │   └── README.md
+├── hooks/
+│   ├── hooks.json                 # Registration des hooks plugin
+│   ├── bias-detector.sh           # 6 biais cognitifs créatifs (UserPromptSubmit)
+│   └── brand-consistency-check.sh # Cohérence brand sur Write|Edit (PostToolUse)
 ├── docs/
 │   ├── ARCHITECTURE.md          # Architecture DDD/Clean
 │   └── adr/                     # Architecture Decision Records

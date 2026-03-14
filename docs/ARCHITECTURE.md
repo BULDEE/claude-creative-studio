@@ -252,6 +252,32 @@ carousel-copywriter rédige 10 slides (copy.md)
   → export .pptx avec fontFace dérivé de brand.json.typography.display
 ```
 
+## Hooks — Garde-fous créatifs
+
+Le plugin intègre un système de hooks inspiré de `ai-craftsman-superpowers`, adapté aux dérives spécifiques du branding et de la création.
+
+### bias-detector.sh (UserPromptSubmit)
+
+Détecte 6 biais cognitifs sur chaque message utilisateur :
+
+| Biais | Déclencheur | Risque |
+|-------|-------------|--------|
+| **Brief Drift** | "change la palette", "repartir de zéro" | Perte de cohérence avec le brief validé |
+| **Perfectionnisme DA** | "encore une variante", "affine" | Boucle infinie d'itération sans livrer |
+| **Phase Skip** | "saute cette phase", "directement" | Assets sans fondation DA = incohérence |
+| **Scope Creep Visuel** | "et aussi", "en plus", "rajoute" | Dilution de qualité |
+| **Palette Anarchie** | "ajoute du rouge", "autre couleur" | Briser la charte brand.json |
+| **Accélération** | "vite", "urgent", "rush" | Branding bâclé = refaire 3x |
+
+### brand-consistency-check.sh (PostToolUse Write|Edit)
+
+Vérifie la cohérence brand sur chaque fichier écrit/modifié :
+- Couleurs hex hardcodées dans `.tsx`/`.ts` (devrait utiliser les tokens)
+- Styles inline avec couleurs (devrait utiliser les classes Tailwind)
+- CSS custom properties hors convention (`--color-*`, `--font-*`, `--radius-*`)
+
+Les deux hooks sont **non-bloquants** (exit 0) — ils avertissent, ne bloquent jamais.
+
 ## Évolutions possibles
 
 | Évolution | Impact | Principe |

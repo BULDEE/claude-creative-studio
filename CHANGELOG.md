@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0] - 2026-03-14
+
+### Added
+- Hooks system: `bias-detector.sh` (UserPromptSubmit) — detecte 6 biais cognitifs créatifs (brief drift, perfectionnisme DA, phase skip, scope creep visuel, palette anarchie, acceleration)
+- Hooks system: `brand-consistency-check.sh` (PostToolUse Write|Edit) — vérifie couleurs hardcodées, styles inline, convention CSS custom properties
+- `hooks/hooks.json` — registration des hooks plugin
+
 ## [2.0.0] - 2026-03-14
 
 ### Added
