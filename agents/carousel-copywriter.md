@@ -4,6 +4,7 @@ description: Copywriter stratégique spécialisé en carrousels LinkedIn/Instagr
 model: sonnet
 skills:
   - social-carousels
+memory: user
 tools: Read, Glob, Grep, Bash
 ---
 

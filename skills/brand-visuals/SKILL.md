@@ -10,8 +10,9 @@ Génère des visuels cohérents avec l'identité visuelle du projet en cours.
 
 ## Prérequis
 
-- `GEMINI_API_KEY` en variable d'environnement (voir `/claude-creative-studio:setup-gemini`)
+- `GEMINI_API_KEY` en variable d'environnement — si absente, rediriger vers `/claude-creative-studio:setup-gemini`
 - Clé gratuite : https://aistudio.google.com/apikey (~500 images/jour)
+- Référence API : voir [gemini-api-reference.md](../gemini-api-reference.md) pour les templates de génération et le fallback
 
 ## Modèles disponibles
 

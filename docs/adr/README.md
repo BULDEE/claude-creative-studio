@@ -20,5 +20,6 @@ Chaque décision architecturale significative est documentée dans un ADR numér
 | [004](004-playwright-excluded-from-bundle.md) | Playwright MCP exclu du bundle plugin | accepted | 2026-03-14 |
 | [005](005-brand-detection-cascade.md) | Détection de DA par cascade contextuelle | accepted | 2026-03-14 |
 | [006](006-skill-per-bounded-context.md) | Un Skill par Bounded Context métier | accepted | 2026-03-14 |
+| 007 | _(reserved)_ | — | — |
 | [008](008-social-carousel-bounded-context.md) | Social Media Carousels comme Bounded Context | accepted | 2026-03-14 |
 | [009](009-agents-over-teams.md) | Agents spécialisés plutôt que Agent Teams | accepted | 2026-03-14 |

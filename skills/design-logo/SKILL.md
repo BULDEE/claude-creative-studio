@@ -53,7 +53,7 @@ Chaque concept doit respecter :
 
 ### Phase 4 : Génération via Nano Banana (optionnel)
 
-Si `GEMINI_API_KEY` est configuré (voir `/claude-creative-studio:setup-gemini`), générer les concepts :
+Si `GEMINI_API_KEY` est configuré (sinon rediriger vers `/claude-creative-studio:setup-gemini`), générer les concepts. Voir [gemini-api-reference.md](../gemini-api-reference.md) pour les templates API et le fallback.
 
 ```javascript
 import { GoogleGenAI } from "@google/genai";

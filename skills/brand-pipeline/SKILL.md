@@ -123,6 +123,9 @@ Le `brand.json` est le **contrat** entre toutes les phases downstream. Voir [bra
 ### Trigger
 L'utilisateur a validé le brandbook final de la Phase 2.
 
+### Pré-condition
+Vérifier que `brand.json` existe dans `brandbook-final/`. Si absent, rediriger vers Phase 2 : "Il me faut le brandbook final avec `brand.json` avant de construire la landing page. On lance la Phase 2 ?"
+
 ### Process
 
 Générer une landing page production-ready en utilisant :

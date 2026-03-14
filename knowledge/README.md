@@ -6,9 +6,10 @@ Dossier de fichiers de référence utilisés par les skills du plugin.
 
 ```
 knowledge/
-├── logo-references/    ← DA logos validées (PDFs, images, SVGs)
-├── brand-assets/       ← Logos finaux, palettes, guidelines
-└── README.md           ← Ce fichier
+├── logo-references/       ← DA logos validées (PDFs, images, SVGs)
+├── brand-assets/          ← Logos finaux, palettes, guidelines
+├── carousel-references/   ← Exemples carrousels viraux, méthodologies copywriting
+└── README.md              ← Ce fichier
 ```
 
 ## Utilisation
@@ -31,6 +32,15 @@ Déposez vos fichiers dans `brand-assets/` :
 - Fichiers `brand.json` de référence
 - Palettes de couleurs
 
+### Ajouter des références de carrousels
+
+Déposez vos fichiers dans `carousel-references/` :
+- PDFs de carrousels performants (exemples visuels)
+- DOCX de méthodologies copywriting (hooks, structure, ton)
+- Templates de scripts et frameworks de contenu
+
+Claude les consultera automatiquement avant de créer un carrousel via le skill `social-carousels`.
+
 ## Formats supportés
 
-PDF, PNG, JPG, SVG, JSON, YAML, MD
+PDF, PNG, JPG, SVG, JSON, YAML, MD, DOCX

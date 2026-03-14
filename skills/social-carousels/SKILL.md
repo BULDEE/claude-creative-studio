@@ -23,8 +23,9 @@ Exemples validés et méthodologies accessibles via le MCP `creative-knowledge` 
 
 ## Prérequis
 
-- `GEMINI_API_KEY` configurée (voir `/claude-creative-studio:setup-gemini`)
+- `GEMINI_API_KEY` configurée — si absente, rediriger vers `/claude-creative-studio:setup-gemini`
 - `brand.json` ou univers visuel fourni par l'utilisateur
+- Référence API : voir [gemini-api-reference.md](../gemini-api-reference.md) pour les templates de génération et le fallback
 
 ## Workflow
 
@@ -159,7 +160,7 @@ for (const s of slides) {
     x: 0.5, y: 0.5,
     w: 9, h: 2,
     fontSize: 28,
-    fontFace: "Arial",
+    fontFace: BRAND_FONT, // Dériver de brand.json.typography.display ou fallback "Arial"
     color: "FFFFFF",
     bold: true,
     align: "left",

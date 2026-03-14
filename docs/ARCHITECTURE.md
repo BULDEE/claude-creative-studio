@@ -53,15 +53,17 @@ Le plugin identifie **quatre contextes bornés** avec des langages ubiquitaires 
                         │                     │                     │
                screenshots dans guide  brand.json palette   brand.json palette
                         │                     │                     │
-               ┌────────▼─────────┐  ┌───────▼──────────┐  ┌──────▼───────────┐
-               │  User Docs       │  │ Social Carousels │  │  Design System   │
-               │                  │  │                  │  │  (Phase 3-4)     │
-               │  Guide           │  │  Carousel        │  │                  │
-               │  Screenshot      │  │  Slide           │  │  Tokens          │
-               │  Flow Interactif │  │  Hook            │  │  Components      │
-               └──────────────────┘  │  Copy            │  │  Tailwind Preset │
-                                     └──────────────────┘  └──────────────────┘
+               ┌────────▼─────────┐  ┌───────▼──────────┐
+               │  User Docs       │  │ Social Carousels │
+               │                  │  │                  │
+               │  Guide           │  │  Carousel        │
+               │  Screenshot      │  │  Slide           │
+               │  Flow Interactif │  │  Hook            │
+               └──────────────────┘  │  Copy            │
+                                     └──────────────────┘
 ```
+
+**Note** : Le Design System (Phases 3-4 du pipeline) n'est pas un Bounded Context séparé. C'est un **sous-domaine de Brand Visuals** — il consomme `brand.json` et produit des artefacts React/Tailwind. Son langage (tokens, composants, preset) est technique, pas métier.
 
 ### Communication inter-contextes
 
@@ -94,6 +96,16 @@ Le plugin fournit 4 agents qui peuvent fonctionner comme subagents ou comme futu
 | `visual-designer` | Génère visuels via Nano Banana | sonnet | `brand-visuals` |
 | `carousel-copywriter` | Copywriting carrousels viraux | sonnet | `social-carousels` |
 | `design-system-engineer` | React tokens, composants, Tailwind | sonnet | `brand-visuals` + cross-plugin |
+
+### Agent-to-Phase mapping
+
+| Phase | Agent primaire | Agent secondaire |
+|-------|---------------|-----------------|
+| Phase 1 — Exploration | `art-director` | `visual-designer` |
+| Phase 2 — Brandbook | `art-director` | `visual-designer` |
+| Phase 3 — Landing React | `design-system-engineer` | — |
+| Phase 4 — Design System | `design-system-engineer` | — |
+| Phase 5 — Carrousels | `carousel-copywriter` | `visual-designer` |
 
 ### Cross-plugin dependencies
 
@@ -132,6 +144,7 @@ claude-creative-studio/
 ├── .gitignore
 │
 ├── skills/                         ← DOMAIN LAYER
+│   ├── gemini-api-reference.md      ← Shared: templates API Gemini (SRP: un seul point de changement)
 │   ├── design-logo/
 │   │   └── SKILL.md                ← BC: Logo Design
 │   ├── brand-visuals/
