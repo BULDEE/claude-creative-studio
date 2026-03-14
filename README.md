@@ -190,6 +190,34 @@ claude-creative-studio/
 └── README.md
 ```
 
+## Migration v1 → v2
+
+### Changements breaking
+
+| v1.0.0 | v2.0.0 | Action |
+|--------|--------|--------|
+| 3 skills (logo, visuals, guide) | 5 skills + pipeline | Aucune — rétrocompatible |
+| Pas d'agents | 4 agents spécialisés | Aucune — les agents sont additifs |
+| `brand-visuals` génère sans fallback | Fallback 3 niveaux si Nano Banana échoue | Aucune — amélioration |
+| Pas de supporting files | `copywriting-rules.md`, `hook-strategies.md`, etc. | Aucune — transparents |
+| Templates Gemini dans chaque skill | `gemini-api-reference.md` centralisé | Si custom : migrer vers le fichier partagé |
+
+### Nouveautés v2.0.0
+
+- **`social-carousels`** : carrousels LinkedIn/Instagram 10 slides avec hooks viraux
+- **`brand-pipeline`** : orchestration 5 phases (exploration → acquisition)
+- **4 agents** : `art-director` (opus), `visual-designer`, `carousel-copywriter`, `design-system-engineer`
+- **Knowledge base** : dossier `carousel-references/` pour exemples et méthodologies
+- **Self-check** : chaque skill valide sa sortie avant livraison
+- **XML tags** : `<constraints>`, `<avoid>`, `<example>`, `<validation_checkpoint>` dans les prompts
+
+### Pour les contributeurs
+
+- Les skills utilisent désormais `gemini-api-reference.md` — ne plus dupliquer les templates API
+- Les agents doivent déclarer `tools:` dans leur frontmatter
+- Les supporting files sont obligatoires si un SKILL.md dépasse 500 lignes
+- Voir [CONTRIBUTING.md](CONTRIBUTING.md) pour les guidelines complètes v2.0.0
+
 ## Licence
 
 MIT — voir [LICENSE](LICENSE)

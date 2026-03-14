@@ -107,6 +107,19 @@ Le plugin fournit 4 agents qui peuvent fonctionner comme subagents ou comme futu
 | Phase 4 — Design System | `design-system-engineer` | — |
 | Phase 5 — Carrousels | `carousel-copywriter` | `visual-designer` |
 
+### Stratégie mémoire des agents
+
+Seuls `art-director` et `carousel-copywriter` ont `memory: user`. Ce choix est délibéré :
+
+| Agent | Memory | Justification |
+|-------|--------|---------------|
+| `art-director` | `user` | Retient les préférences visuelles, directions validées/rejetées, palettes efficaces — critique pour la cohérence DA sur plusieurs sessions |
+| `carousel-copywriter` | `user` | Retient le ton validé, les hooks qui fonctionnent, les sujets déjà traités — permet d'améliorer la pertinence au fil du temps |
+| `visual-designer` | — | Exécutant pur : reçoit un brief et un style de référence, pas de décision créative à retenir |
+| `design-system-engineer` | — | Travail technique déterministe : lit `brand.json`, produit des tokens/composants. Le contexte projet suffit, pas besoin de mémoire inter-sessions |
+
+**Règle** : la mémoire est réservée aux agents qui prennent des **décisions subjectives** (DA, copywriting). Les agents qui **exécutent un contrat** (brand.json → code, brief → image) n'en ont pas besoin.
+
 ### Cross-plugin dependencies
 
 Le `design-system-engineer` référence des skills d'autres plugins quand ils sont disponibles :
@@ -183,6 +196,60 @@ claude-creative-studio/
 ├── CONTRIBUTING.md
 ├── LICENSE
 └── README.md
+```
+
+## Data Flow — Exemple concret
+
+Voici le flux de données complet pour une marque "NovaSanté", de l'exploration à l'acquisition.
+
+### Phase 1 → Phase 2 : Direction → brand.json
+
+```
+art-director propose 3 directions (direction.md × 3)
+  → utilisateur valide "Lumière Bleue"
+    → art-director produit brand.json :
+
+{
+  "name": "NovaSanté",
+  "colors": { "primary": { "hex": "#2563EB" }, "secondary": { "hex": "#10B981" } },
+  "typography": { "display": { "family": "Plus Jakarta Sans" }, "body": { "family": "Inter" } },
+  "style": { "keywords": ["modern", "clean", "medical"] }
+}
+```
+
+### Phase 2 → Phase 3 : brand.json → React tokens
+
+```
+design-system-engineer lit brand.json
+  → génère brand-tokens.css :
+      --color-primary: #2563EB;
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+  → étend tailwind.config.ts :
+      colors: { primary: { DEFAULT: '#2563EB', 600: '#2563EB' } }
+  → crée Hero.tsx :
+      <section className="bg-primary-600 text-white">
+        <h1 className="font-display text-5xl">NovaSanté</h1>
+      </section>
+```
+
+### Phase 3 → Phase 4 : Composants → Design System
+
+```
+design-system-engineer extrait les tokens de tailwind.config.ts
+  → produit tokens/colors.ts (avec branded types HexColor)
+  → produit Button.tsx (variants primary=#2563EB, secondary=#10B981)
+  → produit Button.stories.md (props, variants, accessibility)
+  → produit tailwind.preset.ts (partageable entre projets)
+```
+
+### Phase 2 → Phase 5 : brand.json → Carrousels
+
+```
+carousel-copywriter rédige 10 slides (copy.md)
+  → visual-designer lit brand.json → palette #2563EB, #10B981
+    → génère slide-01.png avec prompt incluant les hex codes
+    → utilise slide-01 comme référence de style pour slides 02-10
+  → export .pptx avec fontFace dérivé de brand.json.typography.display
 ```
 
 ## Évolutions possibles
