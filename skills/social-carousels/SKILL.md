@@ -16,7 +16,7 @@ Exemples validés et méthodologies accessibles via le MCP `creative-knowledge` 
 
 **Path** : `knowledge/carousel-references/` dans le répertoire du plugin.
 
-**Workflow obligatoire** : avant toute création de carrousel :
+**Workflow de préparation** : avant toute création de carrousel :
 1. Utiliser le MCP `creative-knowledge` pour lister et lire les fichiers dans `carousel-references/`
 2. S'inspirer des meilleurs carrousels PDF comme exemples de structure et de rythme visuel
 3. Consulter les méthodologies `.docx` pour le copywriting, les hooks et la structure
@@ -41,7 +41,7 @@ Interroger l'utilisateur sur :
    - Copy-paste (scripts, templates, formules prêtes à l'emploi)
 4. **Audience cible** : entrepreneurs, marketeurs, développeurs, etc.
 5. **Univers visuel** : couleurs, mood, références existantes (`brand.json` si disponible)
-6. **Format d'export** : Canva (défaut) ou Figma ?
+6. **Format d'export** : Canva (défaut, non-tech) ou Figma (équipe dev/design) ?
 
 Si `brand.json` existe dans le projet, l'utiliser comme source de vérité pour la palette et le style. Sinon demander.
 
@@ -49,7 +49,7 @@ Si `brand.json` existe dans le projet, l'utiliser comme source de vérité pour 
 
 Suivre la structure obligatoire documentée dans [copywriting-rules.md](copywriting-rules.md).
 
-**Structure impérative — 10 slides :**
+**Structure 10 slides :**
 
 | Slide | Rôle | Contrainte |
 |-------|------|------------|
@@ -61,13 +61,16 @@ Suivre la structure obligatoire documentée dans [copywriting-rules.md](copywrit
 | 9 | **APPLICATION** | Comment appliquer concrètement |
 | 10 | **CTA** | Action claire, pas d'urgence artificielle |
 
-**Règles non négociables :**
+<constraints>
 - Phrases courtes (6-14 mots max)
 - Pas d'émojis excessifs
 - Pas de jargon
 - Pas de hashtags dans le contenu
 - Une idée = une ligne
 - Ton : confiant, direct, humain
+- Jamais de "Voici comment...", "Je vais t'expliquer...", "3 conseils pour..."
+- Jamais de ton guru ou vendeur
+</constraints>
 
 Pour les hooks, consulter [hook-strategies.md](hook-strategies.md).
 
@@ -117,10 +120,13 @@ const slideN = await client.models.generateContent({
 });
 ```
 
+**Fallback si Nano Banana échoue :**
+Si la génération échoue (quota dépassé, erreur API), simplifier le prompt : retirer les hex codes, utiliser des mots-clés de style simples, et réduire à 3 mots-clés max. Si toujours en échec, générer des slides avec un fond dégradé simple et documenter les prompts pour une génération ultérieure.
+
 **Standards visuels :**
 - Format : 1080x1080 (LinkedIn & Instagram)
 - Espace texte : 40% minimum pour l'overlay
-- Cohérence : même palette, même style, même grain sur TOUTES les slides
+- Cohérence : même palette, même style, même grain sur toutes les slides
 - Pas de texte généré dans l'image (le texte est ajouté dans Canva/Figma)
 
 ### Phase 4 — Export frames éditables
@@ -246,13 +252,42 @@ Tout le reste est supprimé.
 
 Le skill `brand-pipeline` peut déclencher `social-carousels` en Phase 5, après validation du brandbook et du design system. Le `brand.json` produit en Phase 2 est la source de vérité pour la palette et le style.
 
-## Anti-patterns
+<avoid>
+- Slides sans cohérence visuelle (chaque slide a un style différent)
+- Texte trop long par slide (> 35 mots sur les slides valeur)
+- Hook générique ("Voici 3 conseils...")
+- Ton guru ou vendeur
+- Visuels sans rapport avec le sujet de la slide
+- Palette non alignée avec `brand.json`
+- Export sans frames éditables
+- Pas de CTA ou CTA agressif
+</avoid>
 
-- ❌ Slides sans cohérence visuelle (chaque slide a un style différent)
-- ❌ Texte trop long par slide (> 35 mots sur les slides valeur)
-- ❌ Hook générique ("Voici 3 conseils...")
-- ❌ Ton guru ou vendeur
-- ❌ Visuels sans rapport avec le sujet de la slide
-- ❌ Palette non alignée avec `brand.json`
-- ❌ Export sans frames éditables
-- ❌ Pas de CTA ou CTA agressif
+<example>
+**Sujet** : "Comment Heinz a augmenté ses ventes de +18%"
+**Type** : Case Study | **Plateforme** : LinkedIn
+
+| Slide | Rôle | Contenu |
+|-------|------|---------|
+| 1 | TITLE | Comment Heinz a augmenté ses ventes de +18% |
+| 2 | HOOK | Une étiquette a tout changé. |
+| 3 | PAIN | Tu baisses tes prix pour vendre plus. Tes marges fondent. Ton produit perd en valeur. |
+| 4 | SHIFT | Heinz n'a pas touché au prix. Ils ont changé la perception. |
+| 5 | VALEUR | Stratégie 1 : Nouvelle étiquette "grown, not made". Un mot change le positionnement. |
+| 6 | VALEUR | Stratégie 2 : Packaging transparent. Le consommateur voit le produit. Confiance immédiate. |
+| 7 | VALEUR | Stratégie 3 : Campagne "It has to be Heinz". Ancrage identitaire. |
+| 8 | VALEUR | Résultat : +18% de ventes en 12 mois. Sans baisser le prix d'un centime. |
+| 9 | APPLICATION | Regarde ton produit. Change l'angle, pas le prix. Teste un seul mot différent cette semaine. |
+| 10 | CTA | Sauvegarde ce carrousel. DM moi "BRAND" pour le framework complet. |
+</example>
+
+## Self-check avant livraison
+
+Avant de présenter le carrousel, vérifier :
+1. Chaque slide respecte sa limite de mots (title: 5-10, hook: max 10, valeur: max 35)
+2. Les phrases font entre 6 et 14 mots
+3. Aucun anti-pattern de copywriting présent (jargon, "voici comment", ton vendeur)
+4. Le hook utilise une des 6 stratégies documentées
+5. Les 10 slides suivent la structure obligatoire (title → hook → pain → shift → 4x valeur → application → CTA)
+6. La palette visuelle est cohérente sur toutes les slides
+7. Le CTA est clair sans urgence artificielle

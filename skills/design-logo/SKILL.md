@@ -14,7 +14,7 @@ Les exemples de logos et chartes graphiques validés sont accessibles via le MCP
 
 **Chemin** : `knowledge/logo-references/` dans le répertoire du plugin.
 
-**Workflow obligatoire** : avant toute création de logo :
+**Workflow de préparation** : avant toute création de logo :
 1. Utiliser le MCP `creative-knowledge` pour lister et lire les fichiers dans `logo-references/`
 2. Identifier les styles, palettes et typographies dans les références
 3. S'en inspirer comme direction artistique (pas copier)
@@ -120,6 +120,34 @@ Piste [X] : [3 arguments]
 - Taille min : 24px (digital) / 10mm (print)
 - Zone protection : X% hauteur
 ```
+
+<example>
+**Brief** : "NovaSanté", secteur santé digitale, valeurs : confiance, innovation, accessibilité
+
+**Piste 1 — Typographique** :
+- Approche : Logotype "NovaSanté" en Satoshi Bold, le "o" de Nova transformé en point lumineux
+- Palette : #2563EB (confiance médicale), #10B981 (santé/vitalité), #F8FAFC (pureté)
+- Rationale : La typo géométrique évoque la tech, le point lumineux symbolise l'innovation
+
+**Piste 2 — Symbolique** :
+- Approche : Forme abstraite combinant une étoile (Nova) et une croix médicale simplifiée
+- Palette : #0EA5E9 (sérénité), #22D3EE (modernité), #F0FDF4 (naturel)
+- Rationale : Symbole universel de soin, réinterprété en géométrie contemporaine
+
+**Piste 3 — Combinée** :
+- Approche : Icône étoile-croix + logotype "NovaSanté" en Inter Medium
+- Palette : #6366F1 (innovation), #34D399 (bien-être), #FFFFFF (clarté)
+- Rationale : Système flexible — l'icône fonctionne seule en favicon, le logotype pour les supports longs
+</example>
+
+## Self-check avant livraison
+
+Avant de présenter les concepts, vérifier :
+1. Chaque piste a un nom, une approche, une palette et un rationale argumenté
+2. Les 3 pistes sont visuellement distinctes (pas des variations d'une même idée)
+3. Chaque concept passe la checklist qualité (simplicité, mémorabilité, intemporalité, pertinence, versatilité, unicité)
+4. Les palettes ont des hex codes précis, pas des descriptions vagues
+5. Les références DA du knowledge folder ont été consultées
 
 ## Intégration brand-visuals
 

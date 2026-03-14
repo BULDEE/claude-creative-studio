@@ -24,7 +24,7 @@ Génère des visuels cohérents avec l'identité visuelle du projet en cours.
 
 ## Détection automatique de la DA
 
-**Ne jamais utiliser une palette hardcodée.** Toujours détecter le contexte du projet.
+Détecter le contexte du projet plutôt qu'utiliser une palette hardcodée.
 
 ### Ordre de résolution (du plus spécifique au plus général)
 
@@ -137,11 +137,43 @@ const response = await client.models.generateContent({
 - **Pas de texte par défaut** : sauf demande explicite
 - **Fidélité couleur** : toujours inclure les hex codes dans le prompt
 
-## Anti-patterns
+## Fallback si Nano Banana échoue
 
-- ❌ Palette hardcodée sans vérifier le contexte projet
-- ❌ Visuels stock-photo génériques
-- ❌ Style incohérent entre les pages
-- ❌ Texte dans les images sans Nano Banana Pro
-- ❌ Générer sans brief
-- ❌ Clés API hardcodées
+Si la génération échoue (quota, erreur API, image non conforme) :
+1. **Simplifier le prompt** — retirer les hex codes, garder 3 mots-clés de style max
+2. **Réduire la complexité** — demander une composition plus simple (fond uni + sujet centré)
+3. **Si toujours en échec** — documenter le prompt détaillé dans un fichier `visual-brief.md` pour que l'utilisateur génère manuellement via AI Studio
+
+<avoid>
+- Palette hardcodée sans vérifier le contexte projet
+- Visuels stock-photo génériques
+- Style incohérent entre les pages
+- Texte dans les images sans Nano Banana Pro
+- Générer sans brief
+- Clés API hardcodées
+</avoid>
+
+<example>
+**Brief** : Hero image pour une fintech, palette brand.json détectée (#6366F1, #8B5CF6, #06B6D4)
+
+**Prompt construit** :
+```
+Hero image for fintech landing page.
+Style: modern, clean, premium. Abstract 3D shapes and gradients.
+Color palette: #6366F1 primary, #8B5CF6 secondary, #06B6D4 accent.
+Mood: professional, innovative, trustworthy.
+Composition: 40% left for text overlay, key visual right.
+Format: 16:9. No text. Premium quality.
+```
+
+**Self-check** : palette fidèle, espace texte suffisant, pas de texte dans l'image, mood cohérent avec les keywords brand.json.
+</example>
+
+## Self-check avant livraison
+
+Avant de présenter un visuel, vérifier :
+1. La palette utilisée correspond aux hex codes de `brand.json` ou de la source détectée
+2. Le style respecte les keywords et le mood définis
+3. Il n'y a pas de texte dans l'image (sauf demande explicite + utilisation de Pro)
+4. L'espace pour l'overlay texte est suffisant (40% minimum pour hero/social)
+5. Le visuel fonctionne au ratio demandé

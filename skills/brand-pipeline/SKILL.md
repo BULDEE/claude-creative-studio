@@ -28,7 +28,7 @@ brandbook-       brandbook-        src/landing/       design-system/     carouse
 exploration/     final/            + components       tokens + comps     slides + .pptx
 ```
 
-**Règle critique** : chaque phase requiert la **validation explicite de l'utilisateur** avant de passer à la suivante. Ne jamais avancer automatiquement.
+Chaque phase requiert la validation explicite de l'utilisateur avant de passer à la suivante.
 
 ---
 
@@ -71,7 +71,17 @@ Premium quality, editorial feel. No text. Aspect ratio: 16:9.
 
 Créer un dossier `brandbook-exploration/` — voir [phase-templates.md](phase-templates.md) pour les templates `direction.md` et le tableau comparatif.
 
-**Demander à l'utilisateur** : "Quelle direction te parle le plus ? Je peux aussi mixer des éléments de différentes directions."
+<validation_checkpoint phase="1">
+**Présenter à l'utilisateur** pour chaque direction :
+| Direction | Mood | Palette | Argument principal |
+|-----------|------|---------|-------------------|
+| [Nom 1] | [3 mots-clés] | [3 hex codes preview] | [Pourquoi cette direction] |
+| [Nom 2] | [3 mots-clés] | [3 hex codes preview] | [Pourquoi cette direction] |
+| [Nom 3] | [3 mots-clés] | [3 hex codes preview] | [Pourquoi cette direction] |
+
+**Demander** : "Quelle direction te parle le plus ? Je peux aussi mixer des éléments de différentes directions."
+**Attendre** : la réponse explicite de l'utilisateur avant de continuer.
+</validation_checkpoint>
 
 ---
 
@@ -99,7 +109,12 @@ brandbook-final/
 
 Le `brand.json` est le **contrat** entre toutes les phases downstream. Voir [brand-json-schema.md](brand-json-schema.md) pour le schéma complet.
 
-**Demander à l'utilisateur** : "Le brandbook est prêt. On crée la landing page React basée sur cette marque ?"
+<validation_checkpoint phase="2">
+**Présenter** : le README.md brandbook avec aperçu palette, logo versions, typo samples.
+**Vérifier** : `brand.json` est complet (toutes les sections required du schema).
+**Demander** : "Le brandbook est prêt. On crée la landing page React basée sur cette marque ?"
+**Attendre** : la réponse explicite de l'utilisateur.
+</validation_checkpoint>
 
 ---
 
@@ -137,7 +152,12 @@ Générer une landing page production-ready en utilisant :
 | CTA | Call-to-action final | `CTA.tsx` |
 | Footer | Liens + légal + socials | `Footer.tsx` |
 
-**Demander à l'utilisateur** : "La landing page est prête. Tu veux le design system complet pour ton équipe dev ?"
+<validation_checkpoint phase="3">
+**Présenter** : screenshot ou aperçu des composants créés, palette appliquée, responsive preview.
+**Vérifier** : tous les tokens CSS sont dérivés de `brand.json`, pas de couleurs hardcodées.
+**Demander** : "La landing page est prête. Tu veux le design system complet pour ton équipe dev ?"
+**Attendre** : la réponse explicite de l'utilisateur.
+</validation_checkpoint>
 
 ---
 
@@ -164,7 +184,12 @@ design-system/
 └── tailwind.preset.ts     ← Preset Tailwind partageable
 ```
 
-**Demander à l'utilisateur** : "Le design system est prêt. On génère les carrousels social media pour l'acquisition ?"
+<validation_checkpoint phase="4">
+**Présenter** : liste des tokens, composants documentés, Tailwind preset.
+**Vérifier** : chaque composant a sa documentation de props et ses variantes.
+**Demander** : "Le design system est prêt. On génère les carrousels social media pour l'acquisition ?"
+**Attendre** : la réponse explicite de l'utilisateur.
+</validation_checkpoint>
 
 ---
 
@@ -224,19 +249,27 @@ brandbook-exploration/    brandbook-final/           src/landing/             de
 
 ### Règles
 
-- **Ne jamais sauter de phase** — chaque phase valide les hypothèses de la précédente
+- **Respecter l'ordre des phases** — chaque phase valide les hypothèses de la précédente
 - **brand.json est le contrat** — toutes les phases downstream le lisent
 - **Validation utilisateur obligatoire** — présenter et demander explicitement
 - **Exécution partielle OK** — l'utilisateur peut s'arrêter à n'importe quelle phase
 - **Intégration projet existant** — s'adapter à la structure React existante
 
-## Anti-patterns
+<avoid>
+- Avancer sans validation utilisateur
+- Générer sans brandbook validé
+- Hardcoder des couleurs au lieu d'utiliser les tokens
+- Composants qui ne matchent pas brand.json
+- Ignorer l'accessibilité dans le design system
+- Design system sans documentation de props
+- Valeurs arbitraires dans Tailwind au lieu de l'échelle design token
+- Carrousels visuellement incohérents avec la DA
+</avoid>
 
-- ❌ Avancer sans validation utilisateur
-- ❌ Générer sans brandbook validé
-- ❌ Hardcoder des couleurs au lieu d'utiliser les tokens
-- ❌ Composants qui ne matchent pas brand.json
-- ❌ Ignorer l'accessibilité dans le design system
-- ❌ Design system sans documentation de props
-- ❌ Valeurs arbitraires dans Tailwind au lieu de l'échelle design token
-- ❌ Carrousels visuellement incohérents avec la DA
+## Self-check avant chaque transition de phase
+
+Avant de proposer la phase suivante, vérifier :
+1. Tous les outputs de la phase courante sont générés et sauvegardés
+2. `brand.json` est à jour avec les dernières décisions validées
+3. L'utilisateur a explicitement validé (pas d'approbation implicite)
+4. Les fichiers sont organisés selon la structure documentée
