@@ -1,0 +1,25 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Outputs
+logos/
+visuals/
+docs/guide/screenshots/
+
+# Secrets
+.env
+.env.local
+
+# Node
+node_modules/
+
+# Knowledge (user-specific content, not tracked by default)
+# Uncomment if you want to track your references:
+# !knowledge/logo-references/*.pdf
+# !knowledge/brand-assets/*.png
+knowledge/logo-references/*
+knowledge/brand-assets/*
+!knowledge/logo-references/.gitkeep
+!knowledge/brand-assets/.gitkeep
+!knowledge/README.md

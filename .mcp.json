@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "creative-knowledge": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "${CLAUDE_PLUGIN_ROOT}/knowledge"]
+    }
+  }
+}
