@@ -13,18 +13,19 @@
   "userConfig": {
     "image_provider": {
       "type": "string",
-      "enum": ["gemini", "openai"],
+      "title": "Image Provider",
       "default": "gemini",
       "description": "Image generation backend: gemini (Nano Banana — GEMINI_API_KEY, free ~500/day) or openai (gpt-image-1 — OPENAI_IMAGE_KEY, ~$0.04-0.19/image). Full pipeline uses ~40-50 images."
     },
     "creative_temperature": {
       "type": "string",
-      "enum": ["conservative", "balanced", "adventurous"],
+      "title": "Creative Temperature",
       "default": "balanced",
       "description": "Creative diversity for 3D logo proposals: conservative (3 similar), balanced (3 different materials), adventurous (5 experimental)"
     },
     "da_sections": {
       "type": "string",
+      "title": "DA Sections",
       "default": "all",
       "description": "DA HTML sections: all (16 sections incl. moodboard, font exploration, construction grid, clear zone, brand applications), classic (original 10), or comma-separated section numbers (00-15)"
     }
