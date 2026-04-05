@@ -1,0 +1,14 @@
+{
+  "name": "claude-creative-studio-scripts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "ingest": "bash scripts/ingest.sh",
+    "search": "bash scripts/search.sh",
+    "grid": "node scripts/construction-grid.mjs"
+  },
+  "devDependencies": {
+    "@google/genai": "^1.0.0",
+    "better-sqlite3": "^11.0.0"
+  }
+}

@@ -1,36 +1,36 @@
-# ADR-001: Plugin Claude Code plutôt que script bash
+# ADR-001: Claude Code Plugin over Bash Script
 
-**Date** : 2026-03-14
-**Statut** : accepted
+**Date**: 2026-03-14
+**Status**: accepted
 
-## Contexte
+## Context
 
-Le projet a initialement été distribué via un script bash (`setup-creative-studio.sh`) qui créait manuellement les dossiers, copiait les skills, et configurait les MCP servers via `claude mcp add`. Cette approche fonctionnait mais posait des problèmes de maintenabilité, de reproductibilité et d'accessibilité pour des utilisateurs non techniques.
+The project was initially distributed via a bash script (`setup-creative-studio.sh`) that manually created folders, copied skills, and configured MCP servers via `claude mcp add`. This approach worked but posed problems in terms of maintainability, reproducibility, and accessibility for non-technical users.
 
-## Décision
+## Decision
 
-Migrer vers le format officiel **Claude Code Plugin** (spec Anthropic octobre 2025) avec un manifest `plugin.json`, un `.mcp.json` pour la configuration MCP automatique, et la structure standard `skills/`, `commands/`, `knowledge/`.
+Migrate to the official **Claude Code Plugin** format (Anthropic spec, October 2025) with a `plugin.json` manifest, a `.mcp.json` for automatic MCP configuration, and the standard `skills/`, `commands/`, `knowledge/` structure.
 
-## Justification
+## Rationale
 
-**Pour le plugin :**
-- Installation en une commande : `/plugin install BULDEE/claude-creative-studio`
-- MCP auto-configuré via `.mcp.json` (zéro `claude mcp add` manuel)
-- Skills auto-découverts et namespaced (`claude-creative-studio:design-logo`)
-- Distribution via marketplace officiel Anthropic ou GitHub
-- Mises à jour centralisées — l'utilisateur pull une version, pas re-exécute un script
-- Convention partagée avec l'écosystème Claude Code
+**For the plugin:**
+- One-command installation: `/plugin install BULDEE/claude-creative-studio`
+- Auto-configured MCP via `.mcp.json` (zero manual `claude mcp add`)
+- Auto-discovered and namespaced skills (`claude-creative-studio:design-logo`)
+- Distribution via official Anthropic marketplace or GitHub
+- Centralized updates — the user pulls a version, not re-runs a script
+- Shared convention with the Claude Code ecosystem
 
-**Contre le script bash :**
-- Fragile : dépend du shell, des chemins, de la présence de commandes
-- Pas de versioning intégré
-- Pas de namespace — risque de collision avec d'autres skills
-- Maintenance manuelle des mises à jour
-- Hors écosystème — invisible dans `/plugin list`
+**Against the bash script:**
+- Fragile: depends on the shell, paths, and availability of commands
+- No built-in versioning
+- No namespace — risk of collision with other skills
+- Manual update maintenance
+- Outside the ecosystem — invisible in `/plugin list`
 
-## Conséquences
+## Consequences
 
-- Le script `setup-creative-studio.sh` est déprécié
-- Les skills existants dans `~/.claude/skills/` doivent être migrés vers le plugin
-- Les MCP configurés manuellement (`knowledge-base`) sont remplacés par le `.mcp.json` du plugin
-- Les utilisateurs installent via le système de plugins natif
+- The `setup-creative-studio.sh` script is deprecated
+- Existing skills in `~/.claude/skills/` must be migrated to the plugin
+- Manually configured MCPs (`knowledge-base`) are replaced by the plugin's `.mcp.json`
+- Users install via the native plugin system

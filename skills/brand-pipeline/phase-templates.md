@@ -1,6 +1,6 @@
 # Phase Templates — Brand Pipeline
 
-Templates de référence pour chaque phase du pipeline. Consulté par le skill `brand-pipeline`.
+Reference templates for each pipeline phase. Consulted by the `brand-pipeline` skill.
 
 ## direction.md Template (Phase 1)
 
@@ -47,30 +47,30 @@ Templates de référence pour chaque phase du pipeline. Consulté par le skill `
 [Generated mockup showing the direction in context]
 ```
 
-### Exemple rempli — Direction "NovaSanté"
+### Filled Example — "NovaSante" Direction
 
 ```markdown
-# Direction: Lumière Bleue
+# Direction: Blue Light
 
 ## Concept
-Un univers médical contemporain, épuré et lumineux. La direction s'appuie sur des formes géométriques douces et une palette bleu-vert qui évoque à la fois la technologie et le soin. L'espace blanc domine pour communiquer la clarté et la confiance.
+A contemporary, clean, and luminous medical universe. The direction relies on soft geometric shapes and a blue-green palette evoking both technology and care. White space dominates to communicate clarity and trust.
 
 ## Why It Works
-1. Le bleu est la couleur la plus associée à la confiance en santé (étude Pantone 2023)
-2. La géométrie douce (arrondis, cercles) réduit la perception de froideur technologique
-3. Le contraste bleu/vert crée un pont visuel entre "innovation" et "naturel"
+1. Blue is the color most associated with trust in healthcare (Pantone 2023 study)
+2. Soft geometry (rounded edges, circles) reduces the perception of technological coldness
+3. The blue/green contrast creates a visual bridge between "innovation" and "natural"
 
 ## Color Palette
 
 | Role | Color | Hex | Usage |
 |------|-------|-----|-------|
-| Primary | Bleu Confiance | #2563EB | CTAs, headings, éléments-clés |
-| Secondary | Vert Vitalité | #10B981 | Badges santé, accents positifs |
-| Accent | Cyan Innovation | #06B6D4 | Notifications, highlights |
-| Background | Blanc Pur | #FAFBFC | Fond de page |
-| Surface | Gris Nuage | #F1F5F9 | Cards, sections élevées |
-| Text Primary | Ardoise | #1E293B | Corps de texte |
-| Text Secondary | Gris Moyen | #64748B | Labels, captions |
+| Primary | Trust Blue | #2563EB | CTAs, headings, key elements |
+| Secondary | Vitality Green | #10B981 | Health badges, positive accents |
+| Accent | Innovation Cyan | #06B6D4 | Notifications, highlights |
+| Background | Pure White | #FAFBFC | Page background |
+| Surface | Cloud Gray | #F1F5F9 | Cards, elevated sections |
+| Text Primary | Slate | #1E293B | Body text |
+| Text Secondary | Medium Gray | #64748B | Labels, captions |
 
 ## Typography
 
@@ -78,20 +78,20 @@ Un univers médical contemporain, épuré et lumineux. La direction s'appuie sur
 |------|------|--------|-------|
 | Display | Plus Jakarta Sans | Bold (700) | H1, hero text |
 | Heading | Plus Jakarta Sans | Semibold (600) | H2-H4 |
-| Body | Inter | Regular (400) | Paragraphes |
-| Mono | JetBrains Mono | Regular (400) | Données médicales |
+| Body | Inter | Regular (400) | Paragraphs |
+| Mono | JetBrains Mono | Regular (400) | Medical data |
 
 ## Logo Concept
-Logotype "NovaSanté" en Plus Jakarta Sans Bold, le "o" de Nova transformé en point lumineux bleu #2563EB. Le point lumineux symbolise l'étoile (Nova) et le diagnostic digital. Déclinaison icône : le "N" stylisé avec le point lumineux.
+"NovaSante" logotype in Plus Jakarta Sans Bold, the "o" in Nova transformed into a blue #2563EB light point. The light point symbolizes the star (Nova) and digital diagnosis. Icon variant: stylized "N" with the light point.
 
 ## Visual Style
-- **Illustration** : flat avec dégradés subtils, formes organiques arrondies
-- **Photography** : portraits patients/médecins lumineux, style éditorial, lumière naturelle
-- **Iconography** : outline 1.5px stroke, coins arrondis, style Phosphor
-- **Patterns/Textures** : dégradés bleu→cyan subtils, grain léger sur les hero
+- **Illustration**: flat with subtle gradients, rounded organic shapes
+- **Photography**: bright patient/doctor portraits, editorial style, natural light
+- **Iconography**: outline 1.5px stroke, rounded corners, Phosphor style
+- **Patterns/Textures**: subtle blue→cyan gradients, light grain on hero sections
 
 ## Sample Application
-[Hero image générée : fond blanc, formes géométriques bleu/vert en arrière-plan, espace texte 40% gauche]
+[Generated hero image: white background, blue/green geometric shapes in background, 40% text space on left]
 ```
 
 ## Comparison Table Template (Phase 1)
@@ -106,16 +106,16 @@ Logotype "NovaSanté" en Plus Jakarta Sans Bold, le "o" de Nova transformé en p
 | Best For | [audience] | [audience] | [audience] |
 ```
 
-### Exemple rempli — NovaSanté
+### Filled Example — NovaSante
 
 ```markdown
-| Aspect | Lumière Bleue | Terre Vivante | Néon Urbain |
-|--------|--------------|---------------|-------------|
-| Mood | confiance, clarté, sérénité | naturel, chaleur, proximité | audace, énergie, disruption |
+| Aspect | Blue Light | Living Earth | Urban Neon |
+|--------|------------|--------------|------------|
+| Mood | trust, clarity, serenity | natural, warmth, proximity | boldness, energy, disruption |
 | Primary Color | #2563EB | #059669 | #7C3AED |
 | Display Font | Plus Jakarta Sans | DM Serif Display | Space Grotesk |
-| Logo Style | logotype minimaliste | symbole organique + serif | typographique bold |
-| Best For | B2B santé, hôpitaux, assurances | patients, bien-être, prévention | startups santé, GenZ |
+| Logo Style | minimalist logotype | organic symbol + serif | bold typographic |
+| Best For | B2B healthcare, hospitals, insurance | patients, wellness, prevention | health startups, GenZ |
 ```
 
 ## Brandbook README.md Sections (Phase 2)
@@ -154,7 +154,7 @@ export const colors = {
 export type ColorToken = keyof typeof colors;
 ```
 
-### Exemple rempli — NovaSanté tokens
+### Filled Example — NovaSante Tokens
 
 ```typescript
 // tokens/colors.ts
@@ -236,44 +236,44 @@ Each `*.stories.md` follows:
 [Best practices]
 ```
 
-### Exemple rempli — Button.stories.md
+### Filled Example — Button.stories.md
 
 ```markdown
 # Button
 
 ## Usage
-Action principale de l'interface. Utiliser pour les soumissions de formulaire, navigations importantes et CTAs.
+Primary interface action. Use for form submissions, important navigations, and CTAs.
 
 ## Variants
 | Variant | Usage | Example |
 |---------|-------|---------|
-| `primary` | Action principale — 1 par section max | "Prendre rendez-vous" |
-| `secondary` | Action secondaire complémentaire | "En savoir plus" |
-| `ghost` | Action tertiaire, navigation inline | "Annuler" |
-| `destructive` | Suppression, actions irréversibles | "Supprimer le compte" |
+| `primary` | Primary action — 1 per section max | "Book appointment" |
+| `secondary` | Complementary secondary action | "Learn more" |
+| `ghost` | Tertiary action, inline navigation | "Cancel" |
+| `destructive` | Deletion, irreversible actions | "Delete account" |
 
 ## Sizes
 | Size | Height | Font Size | Padding | Usage |
 |------|--------|-----------|---------|-------|
-| `sm` | 32px | 14px | 12px 16px | Inline, tableaux |
-| `md` | 40px | 16px | 12px 24px | Formulaires (défaut) |
+| `sm` | 32px | 14px | 12px 16px | Inline, tables |
+| `md` | 40px | 16px | 12px 24px | Forms (default) |
 | `lg` | 48px | 18px | 16px 32px | Hero CTA, landing |
 
 ## Props
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `variant` | `'primary' \| 'secondary' \| 'ghost' \| 'destructive'` | `'primary'` | Style visuel |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du bouton |
-| `disabled` | `boolean` | `false` | Désactive l'interaction |
-| `loading` | `boolean` | `false` | Affiche un spinner |
-| `asChild` | `boolean` | `false` | Compose avec un élément enfant (Radix pattern) |
+| `variant` | `'primary' \| 'secondary' \| 'ghost' \| 'destructive'` | `'primary'` | Visual style |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Button size |
+| `disabled` | `boolean` | `false` | Disables interaction |
+| `loading` | `boolean` | `false` | Displays a spinner |
+| `asChild` | `boolean` | `false` | Composes with a child element (Radix pattern) |
 
 ## Accessibility
-- Rôle `button` natif (pas de `<div onClick>`)
-- `aria-disabled` si disabled (pas `pointer-events: none` seul)
-- `aria-busy="true"` pendant loading
-- Focus visible conforme WCAG 2.1 AA (outline 2px offset)
-- Contraste texte/fond ≥ 4.5:1
+- Native `button` role (no `<div onClick>`)
+- `aria-disabled` when disabled (not `pointer-events: none` alone)
+- `aria-busy="true"` during loading
+- WCAG 2.1 AA compliant visible focus (2px offset outline)
+- Text/background contrast ratio >= 4.5:1
 
 ## Code
 
@@ -281,19 +281,19 @@ Action principale de l'interface. Utiliser pour les soumissions de formulaire, n
 import { Button } from '@/components/Button';
 
 <Button variant="primary" size="lg">
-  Prendre rendez-vous
+  Book appointment
 </Button>
 
 <Button variant="secondary" loading>
-  Chargement...
+  Loading...
 </Button>
 \`\`\`
 
 ## Do / Don't
-- **Do** : un seul bouton `primary` par section visible
-- **Do** : verbe d'action clair ("Enregistrer", pas "OK")
-- **Don't** : 2 boutons `primary` côte à côte
-- **Don't** : texte vague ("Cliquez ici", "Soumettre")
+- **Do**: one `primary` button per visible section
+- **Do**: clear action verb ("Save", not "OK")
+- **Don't**: 2 `primary` buttons side by side
+- **Don't**: vague text ("Click here", "Submit")
 ```
 
 ## Tailwind Preset Template (Phase 4)

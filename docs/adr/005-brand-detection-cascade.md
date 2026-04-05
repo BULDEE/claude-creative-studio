@@ -1,52 +1,52 @@
-# ADR-005: Détection de DA par cascade contextuelle
+# ADR-005: Brand Identity Detection via Contextual Cascade
 
-**Date** : 2026-03-14
-**Statut** : accepted
+**Date**: 2026-03-14
+**Status**: accepted
 
-## Contexte
+## Context
 
-Le skill `brand-visuals` génère des visuels qui doivent être cohérents avec l'identité visuelle du projet en cours. Le problème : comment obtenir la palette de couleurs et le style sans demander à l'utilisateur de configurer manuellement un fichier à chaque fois ?
+The `brand-visuals` skill generates visuals that must be consistent with the current project's visual identity. The problem: how to obtain the color palette and style without requiring the user to manually configure a file each time?
 
-## Décision
+## Decision
 
-Implémenter un **pattern de cascade** (Chain of Responsibility) qui résout la DA dans un ordre de priorité décroissant, en s'arrêtant à la première source trouvée.
+Implement a **cascade pattern** (Chain of Responsibility) that resolves the brand identity in descending priority order, stopping at the first source found.
 
-### Ordre de résolution
+### Resolution Order
 
 ```
-1. brand.json / brand.yaml    ← Source explicite (plus haute priorité)
-2. tailwind.config.*           ← Extraction des couleurs custom
-3. CSS custom properties       ← Variables --color-* dans les CSS racine
-4. .claude/CLAUDE.md           ← Mentions de palette dans le contexte projet
-5. package.json                ← Nom et description pour le contexte
-6. Demander à l'utilisateur    ← Fallback ultime
+1. brand.json / brand.yaml    ← Explicit source (highest priority)
+2. tailwind.config.*           ← Custom color extraction
+3. CSS custom properties       ← --color-* variables in root CSS
+4. .claude/CLAUDE.md           ← Palette mentions in project context
+5. package.json                ← Name and description for context
+6. Ask the user                ← Ultimate fallback
 ```
 
-## Justification
+## Rationale
 
-**Principes appliqués :**
+**Applied principles:**
 
-- **Open/Closed Principle (OCP)** : la cascade est extensible — ajouter une nouvelle source (ex: Figma tokens) ne nécessite pas de modifier les sources existantes, juste d'insérer un nouveau niveau dans la chaîne.
+- **Open/Closed Principle (OCP)**: the cascade is extensible — adding a new source (e.g., Figma tokens) does not require modifying existing sources, just inserting a new level in the chain.
 
-- **Convention over Configuration** : dans 90% des projets web modernes, la palette est dans Tailwind ou des CSS variables. Le skill la trouve sans que l'utilisateur n'ait rien à configurer.
+- **Convention over Configuration**: in 90% of modern web projects, the palette is in Tailwind or CSS variables. The skill finds it without any user configuration.
 
-- **Explicit is better than implicit** : malgré l'auto-détection, le skill **affiche toujours** la palette détectée et **demande validation** avant de générer. L'utilisateur garde le contrôle.
+- **Explicit is better than implicit**: despite auto-detection, the skill **always displays** the detected palette and **asks for validation** before generating. The user retains control.
 
-- **Fail gracefully** : si aucune source n'est trouvée, on ne fail pas — on demande à l'utilisateur. Pas d'erreur, pas de blocage.
+- **Fail gracefully**: if no source is found, it doesn't fail — it asks the user. No error, no blocking.
 
-**Pourquoi pas une config obligatoire (`brand.json` requis) :**
-- Friction d'onboarding trop élevée pour un non-technique
-- La plupart des projets ont déjà leurs couleurs dans Tailwind
-- Forcer un fichier supplémentaire viole le principe de moindre surprise
+**Why not a mandatory config (`brand.json` required):**
+- Onboarding friction too high for non-technical users
+- Most projects already have their colors in Tailwind
+- Forcing an additional file violates the principle of least surprise
 
-**Pourquoi pas un seul point d'entrée (ex: Tailwind uniquement) :**
-- Tous les projets n'utilisent pas Tailwind
-- Certains projets ont un `brand.json` plus riche (style, mood, keywords)
-- La cascade couvre le maximum de cas sans assomption
+**Why not a single entry point (e.g., Tailwind only):**
+- Not all projects use Tailwind
+- Some projects have a richer `brand.json` (style, mood, keywords)
+- The cascade covers the maximum number of cases without assumptions
 
-## Conséquences
+## Consequences
 
-- Le skill doit documenter clairement l'ordre de résolution
-- Le `brand.json` est le format recommandé dans la doc pour les utilisateurs qui veulent un contrôle total
-- La validation utilisateur avant génération est obligatoire (pas d'auto-génération silencieuse)
-- Les sources sont lues de manière paresseuse (on s'arrête à la première trouvée)
+- The skill must clearly document the resolution order
+- `brand.json` is the recommended format in the docs for users who want full control
+- User validation before generation is mandatory (no silent auto-generation)
+- Sources are read lazily (stops at the first one found)

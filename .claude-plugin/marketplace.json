@@ -1,0 +1,25 @@
+{
+  "name": "claude-creative-studio",
+  "version": "0.10.0",
+  "owner": {
+    "name": "Alexandre Mallet",
+    "email": "contact@buldee.com"
+  },
+  "metadata": {
+    "description": "Professional DA generation pipeline for Claude Code — brand identity, 3D logos, interactive HTML brandbook, branded visuals, social carousels, and full brandbook export with Nano Banana or OpenAI."
+  },
+  "plugins": [
+    {
+      "name": "claude-creative-studio",
+      "version": "0.10.0",
+      "description": "Brand-to-code pipeline with DA generation, 3D logo proposals, interactive HTML brandbook, dual image provider (Gemini/OpenAI), and automated branding/ folder export.",
+      "author": {
+        "name": "Alexandre Mallet",
+        "email": "contact@buldee.com"
+      },
+      "source": "./",
+      "category": "creative",
+      "tags": ["design", "branding", "logo", "3d", "DA", "brandbook", "nano-banana", "openai", "carousels", "design-system"]
+    }
+  ]
+}

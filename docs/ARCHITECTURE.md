@@ -1,196 +1,201 @@
 # Architecture — Claude Creative Studio v2.0.0
 
-## Vue d'ensemble
+## Overview
 
-Claude Creative Studio est un **Claude Code Plugin** structuré selon les principes de Clean Architecture, DDD et SOLID, adaptés au contexte d'un système de skills et agents piloté par un LLM.
+Claude Creative Studio is a **Claude Code Plugin** structured according to Clean Architecture, DDD, and SOLID principles, adapted to the context of a skills and agents system driven by an LLM.
 
-## Couches architecturales
+## Architectural Layers
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
 │                      PRESENTATION                            │
-│  commands/           Slash commands — point d'entrée user     │
-│  skills/*/SKILL.md   Instructions LLM — contrat d'interface  │
-│  agents/             Subagents spécialisés — delegation       │
+│  commands/           Slash commands — user entry point        │
+│  skills/*/SKILL.md   LLM instructions — interface contract   │
+│  agents/             Specialized subagents — delegation       │
 ├──────────────────────────────────────────────────────────────┤
 │                      APPLICATION                             │
-│  brand-pipeline      Process Manager — orchestration 5 phases │
-│  Workflows skills    brief → détection DA → génération → out  │
-│  Validation          checklist qualité, confirmation user      │
+│  brand-pipeline      Process Manager — 5-phase orchestration │
+│  Skill workflows     brief → DA detection → generation → out │
+│  Validation          quality checklist, user confirmation     │
 ├──────────────────────────────────────────────────────────────┤
 │                        DOMAIN                                │
-│  Bounded Contexts :                                          │
+│  Bounded Contexts:                                           │
 │    Logo Design │ Brand Visuals │ User Docs │ Social Carousels│
-│  Aggregates : Brief, Asset, Guide, Carousel                  │
-│  Value Objects : Palette, Direction, Screenshot, Slide        │
-│  Domain Services : Cascade DA, Checklist, Hook Strategy       │
+│  Aggregates: Brief, Asset, Guide, Carousel                   │
+│  Value Objects: Palette, Direction, Screenshot, Slide         │
+│  Domain Services: DA Cascade, Checklist, Hook Strategy        │
 ├──────────────────────────────────────────────────────────────┤
 │                     INFRASTRUCTURE                           │
 │  .mcp.json           MCP Filesystem (knowledge base)         │
-│  Gemini API          Backend de génération (Nano Banana)      │
-│  Playwright MCP      Navigation & screenshots (externe)       │
-│  PptxGenJS           Export carrousels .pptx (Canva)          │
+│  Gemini API          Generation backend (Nano Banana)        │
+│  Playwright MCP      Navigation & screenshots (external)     │
+│  PptxGenJS           Carousel .pptx export (Canva)           │
 │  Filesystem          Output (logos/, visuals/, carousels/)    │
 └──────────────────────────────────────────────────────────────┘
 ```
 
-## Mapping DDD
+## DDD Mapping
 
 ### Bounded Contexts
 
-Le plugin identifie **quatre contextes bornés** avec des langages ubiquitaires distincts :
+The plugin identifies **four bounded contexts** with distinct ubiquitous languages:
 
 ```
 ┌─────────────────┐    brand.json    ┌──────────────────┐
 │  Logo Design    │ ───────────────► │  Brand Visuals   │
 │                 │  (Domain Event)  │                  │
 │  Brief          │                  │  Asset Brief     │
-│  Piste Créative │                  │  Brand Tokens    │
-│  Déclinaison    │                  │  Type d'Asset    │
+│  Creative Dir.  │                  │  Brand Tokens    │
+│  Variation      │                  │  Asset Type      │
 └─────────────────┘                  └──────────────────┘
                                               │
                         ┌─────────────────────┼─────────────────────┐
                         │                     │                     │
-               screenshots dans guide  brand.json palette   brand.json palette
+               screenshots in guide    brand.json palette   brand.json palette
                         │                     │                     │
                ┌────────▼─────────┐  ┌───────▼──────────┐
                │  User Docs       │  │ Social Carousels │
                │                  │  │                  │
                │  Guide           │  │  Carousel        │
                │  Screenshot      │  │  Slide           │
-               │  Flow Interactif │  │  Hook            │
+               │  Interactive Flow│  │  Hook            │
                └──────────────────┘  │  Copy            │
                                      └──────────────────┘
 ```
 
-**Note** : Le Design System (Phases 3-4 du pipeline) n'est pas un Bounded Context séparé. C'est un **sous-domaine de Brand Visuals** — il consomme `brand.json` et produit des artefacts React/Tailwind. Son langage (tokens, composants, preset) est technique, pas métier.
+**Note**: The Design System (Pipeline Phases 3-4) is not a separate Bounded Context. It is a **subdomain of Brand Visuals** — it consumes `brand.json` and produces React/Tailwind artifacts. Its language (tokens, components, preset) is technical, not domain-driven.
 
-### Communication inter-contextes
+### Inter-context Communication
 
-Les contextes sont **loosely coupled** via des conventions partagées :
+Contexts are **loosely coupled** via shared conventions:
 
-| Source | Convention | Consommateur |
-|--------|-----------|-------------|
-| `design-logo` | `brand.json` produit | `brand-visuals`, `social-carousels`, `brand-pipeline` |
-| `brand-visuals` | Fichiers dans `visuals/` | Templates React, slides carrousels |
-| `app-guide-generator` | Screenshots dans `docs/guide/` | Documentation projet |
-| `social-carousels` | Slides dans `carousels/` + `.pptx` | Canva / Figma (externe) |
-| `brand-pipeline` | Orchestre les 5 phases | Tous les skills ci-dessus |
+| Source | Convention | Consumer |
+|--------|-----------|----------|
+| `design-logo` | produces `brand.json` | `brand-visuals`, `social-carousels`, `brand-pipeline` |
+| `brand-visuals` | files in `visuals/` | React templates, carousel slides |
+| `app-guide-generator` | screenshots in `docs/guide/` | Project documentation |
+| `social-carousels` | slides in `carousels/` + `.pptx` | Canva / Figma (external) |
+| `brand-pipeline` | orchestrates 5 phases | All skills above |
 
 ### Aggregates
 
 | Bounded Context | Aggregate Root | Invariants |
 |----------------|---------------|------------|
-| Logo Design | `Brief` (nom, secteur, valeurs) | 3 pistes minimum, checklist qualité validée |
-| Brand Visuals | `AssetBrief` (type, sujet, ratio) | DA détectée et validée avant génération |
-| User Docs | `Guide` (audience, périmètre, pages) | ToC validée, auth manuelle si nécessaire |
-| Social Carousels | `Carousel` (sujet, type, plateforme) | 10 slides, hook viral, cohérence visuelle |
+| Logo Design | `Brief` (name, sector, values) | Minimum 3 directions, quality checklist validated |
+| Brand Visuals | `AssetBrief` (type, subject, ratio) | DA detected and validated before generation |
+| User Docs | `Guide` (audience, scope, pages) | ToC validated, manual auth if needed |
+| Social Carousels | `Carousel` (topic, type, platform) | 10 slides, viral hook, visual consistency |
 
-## Agents spécialisés
+## Specialized Agents
 
-Le plugin fournit 4 agents qui peuvent fonctionner comme subagents ou comme futurs teammates :
+The plugin provides 4 agents that can operate as subagents or as future teammates:
 
-| Agent | Rôle | Model | Skills préchargés |
-|-------|------|-------|-------------------|
-| `art-director` | Lead créatif, valide la DA | opus | `design-logo`, `brand-visuals` |
-| `visual-designer` | Génère visuels via Nano Banana | sonnet | `brand-visuals` |
-| `carousel-copywriter` | Copywriting carrousels viraux | sonnet | `social-carousels` |
-| `design-system-engineer` | React tokens, composants, Tailwind | sonnet | `brand-visuals` + cross-plugin |
+| Agent | Role | Model | Preloaded Skills |
+|-------|------|-------|------------------|
+| `art-director` | Creative lead, validates the DA | opus | `design-logo`, `brand-visuals` |
+| `visual-designer` | Generates visuals via Nano Banana | sonnet | `brand-visuals` |
+| `carousel-copywriter` | Viral carousel copywriting | sonnet | `social-carousels` |
+| `design-system-engineer` | React tokens, components, Tailwind | sonnet | `brand-visuals` + cross-plugin |
 
-### Agent-to-Phase mapping
+### Agent-to-Phase Mapping
 
-| Phase | Agent primaire | Agent secondaire |
+| Phase | Primary Agent | Secondary Agent |
 |-------|---------------|-----------------|
 | Phase 1 — Exploration | `art-director` | `visual-designer` |
 | Phase 2 — Brandbook | `art-director` | `visual-designer` |
-| Phase 3 — Landing React | `design-system-engineer` | — |
+| Phase 3 — React Landing | `design-system-engineer` | — |
 | Phase 4 — Design System | `design-system-engineer` | — |
-| Phase 5 — Carrousels | `carousel-copywriter` | `visual-designer` |
+| Phase 5 — Carousels | `carousel-copywriter` | `visual-designer` |
 
-### Stratégie mémoire des agents
+### Agent Memory Strategy
 
-Seuls `art-director` et `carousel-copywriter` ont `memory: user`. Ce choix est délibéré :
+Only `art-director` and `carousel-copywriter` have `memory: user`. This is deliberate:
 
-| Agent | Memory | Justification |
-|-------|--------|---------------|
-| `art-director` | `user` | Retient les préférences visuelles, directions validées/rejetées, palettes efficaces — critique pour la cohérence DA sur plusieurs sessions |
-| `carousel-copywriter` | `user` | Retient le ton validé, les hooks qui fonctionnent, les sujets déjà traités — permet d'améliorer la pertinence au fil du temps |
-| `visual-designer` | — | Exécutant pur : reçoit un brief et un style de référence, pas de décision créative à retenir |
-| `design-system-engineer` | — | Travail technique déterministe : lit `brand.json`, produit des tokens/composants. Le contexte projet suffit, pas besoin de mémoire inter-sessions |
+| Agent | Memory | Rationale |
+|-------|--------|-----------|
+| `art-director` | `user` | Retains visual preferences, validated/rejected directions, effective palettes — critical for DA consistency across sessions |
+| `carousel-copywriter` | `user` | Retains validated tone, hooks that perform well, previously covered topics — improves relevance over time |
+| `visual-designer` | — | Pure executor: receives a brief and a reference style, no creative decisions to retain |
+| `design-system-engineer` | — | Deterministic technical work: reads `brand.json`, produces tokens/components. Project context is sufficient, no need for inter-session memory |
 
-**Règle** : la mémoire est réservée aux agents qui prennent des **décisions subjectives** (DA, copywriting). Les agents qui **exécutent un contrat** (brand.json → code, brief → image) n'en ont pas besoin.
+**Rule**: memory is reserved for agents making **subjective decisions** (DA, copywriting). Agents that **execute a contract** (brand.json -> code, brief -> image) do not need it.
 
-### Cross-plugin dependencies
+### Cross-plugin Dependencies
 
-Le `design-system-engineer` référence des skills d'autres plugins quand ils sont disponibles :
-- `craftsman:component` — scaffolding composants React (plugin ai-craftsman-superpowers)
-- `frontend-design:frontend-design` — design visuel haute qualité (plugin frontend-design)
+The `design-system-engineer` references skills from other plugins when available:
+- `craftsman:component` — React component scaffolding (ai-craftsman-superpowers plugin)
+- `frontend-design:frontend-design` — high-quality visual design (frontend-design plugin)
 
-Ces dépendances sont **optionnelles** — les agents appliquent les principes directement si les plugins ne sont pas installés.
+These dependencies are **optional** — agents apply the principles directly if the plugins are not installed.
 
-## Principes SOLID appliqués
+## SOLID Principles Applied
 
 ### S — Single Responsibility
-Chaque skill a **une seule raison de changer**. Chaque agent a **un rôle unique**.
+Each skill has **one reason to change**. Each agent has **a single role**.
 
 ### O — Open/Closed
-- Nouveau BC = nouveau dossier dans `skills/` (pas de modification)
-- Nouvel agent = nouveau fichier dans `agents/`
-- Nouvelles références = déposer dans `knowledge/`
+- New BC = new folder in `skills/` (no modification needed)
+- New agent = new file in `agents/`
+- New references = drop into `knowledge/`
 
 ### L — Liskov Substitution
-Les backends de génération sont substituables : Gemini → DALL-E → Flux sans changer le workflow.
+Generation backends are substitutable: Gemini -> DALL-E -> Flux without changing the workflow.
 
 ### I — Interface Segregation
-Chaque skill/agent expose exactement ce qui est nécessaire à son contexte.
+Each skill/agent exposes exactly what is needed for its context.
 
 ### D — Dependency Inversion
-Tous les composants dépendent de `brand.json` (abstraction), pas des détails d'implémentation.
+All components depend on `brand.json` (abstraction), not on implementation details.
 
-## Structure des fichiers
+## File Structure
 
 ```
 claude-creative-studio/
 ├── .claude-plugin/
-│   └── plugin.json                 ← Identité du plugin (SRP: metadata only)
-├── .mcp.json                       ← Infrastructure: accès knowledge base
+│   └── plugin.json                 <- Plugin identity (SRP: metadata only)
+├── .mcp.json                       <- Infrastructure: knowledge base access
 ├── .gitignore
 │
-├── skills/                         ← DOMAIN LAYER
-│   ├── gemini-api-reference.md      ← Shared: templates API Gemini (SRP: un seul point de changement)
+├── skills/                         <- DOMAIN LAYER
+│   ├── image-provider-reference.md   <- Shared: multi-provider API templates Gemini/OpenAI (SRP)
 │   ├── design-logo/
-│   │   └── SKILL.md                ← BC: Logo Design
+│   │   └── SKILL.md                <- BC: Logo Design + 3D proposals
 │   ├── brand-visuals/
-│   │   └── SKILL.md                ← BC: Brand Visual Production
+│   │   └── SKILL.md                <- BC: Brand Visual Production
+│   ├── brand-da/
+│   │   └── SKILL.md                <- BC: Interactive HTML DA (10 sections)
+│   ├── brand-export/
+│   │   └── SKILL.md                <- BC: Branding Folder Export
 │   ├── app-guide-generator/
-│   │   └── SKILL.md                ← BC: User Documentation
+│   │   └── SKILL.md                <- BC: User Documentation
 │   ├── social-carousels/
-│   │   ├── SKILL.md                ← BC: Social Media Acquisition
-│   │   ├── copywriting-rules.md    ← Règles copywriting (supporting file)
-│   │   └── hook-strategies.md      ← Matrice hooks viraux (supporting file)
+│   │   ├── SKILL.md                <- BC: Social Media Acquisition
+│   │   ├── copywriting-rules.md    <- Copywriting rules (supporting file)
+│   │   └── hook-strategies.md      <- Viral hooks matrix (supporting file)
 │   └── brand-pipeline/
-│       ├── SKILL.md                ← Process Manager (orchestration 5 phases)
-│       ├── phase-templates.md      ← Templates extraits (supporting file)
-│       └── brand-json-schema.md    ← Schema brand.json (supporting file)
+│       ├── SKILL.md                <- Process Manager (8-phase orchestration)
+│       ├── phase-templates.md      <- Extracted templates (supporting file)
+│       └── brand-json-schema.md    <- brand.json schema (supporting file)
 │
-├── commands/                       ← APPLICATION LAYER
-│   └── setup-gemini.md             ← Configuration guidée (disable-model-invocation)
+├── commands/                       <- APPLICATION LAYER
+│   ├── setup-provider.md            <- Image provider configuration Gemini/OpenAI
+│   └── setup-gemini.md             <- Gemini configuration (legacy)
 │
-├── agents/                         ← DELEGATION LAYER
-│   ├── art-director.md             ← Lead créatif (opus, memory)
-│   ├── visual-designer.md          ← Spécialiste Nano Banana (sonnet)
-│   ├── carousel-copywriter.md      ← Copywriter carrousels (sonnet)
-│   └── design-system-engineer.md   ← React/Tailwind/DDD (sonnet)
+├── agents/                         <- DELEGATION LAYER
+│   ├── art-director.md             <- Creative lead (opus, memory)
+│   ├── visual-designer.md          <- Nano Banana specialist (sonnet)
+│   ├── carousel-copywriter.md      <- Carousel copywriter (sonnet)
+│   └── design-system-engineer.md   <- React/Tailwind/DDD (sonnet)
 │
-├── knowledge/                      ← INFRASTRUCTURE LAYER (data)
-│   ├── logo-references/            ← Références DA logos
-│   ├── brand-assets/               ← Assets validés
-│   ├── carousel-references/        ← Exemples carrousels + méthodologies
+├── knowledge/                      <- INFRASTRUCTURE LAYER (data)
+│   ├── logo-references/            <- Logo DA references
+│   ├── brand-assets/               <- Validated assets
+│   ├── carousel-references/        <- Carousel examples + methodologies
 │   └── README.md
 │
-├── docs/                           ← DOCUMENTATION
-│   ├── ARCHITECTURE.md             ← Ce fichier
-│   └── adr/                        ← Architecture Decision Records
+├── docs/                           <- DOCUMENTATION
+│   ├── ARCHITECTURE.md             <- This file
+│   └── adr/                        <- Architecture Decision Records
 │
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
@@ -198,92 +203,92 @@ claude-creative-studio/
 └── README.md
 ```
 
-## Data Flow — Exemple concret
+## Data Flow — Concrete Example
 
-Voici le flux de données complet pour une marque "NovaSanté", de l'exploration à l'acquisition.
+Here is the complete data flow for a brand "NovaHealth", from exploration to acquisition.
 
-### Phase 1 → Phase 2 : Direction → brand.json
+### Phase 1 -> Phase 2: Direction -> brand.json
 
 ```
-art-director propose 3 directions (direction.md × 3)
-  → utilisateur valide "Lumière Bleue"
-    → art-director produit brand.json :
+art-director proposes 3 directions (direction.md x 3)
+  -> user validates "Blue Light"
+    -> art-director produces brand.json:
 
 {
-  "name": "NovaSanté",
+  "name": "NovaHealth",
   "colors": { "primary": { "hex": "#2563EB" }, "secondary": { "hex": "#10B981" } },
   "typography": { "display": { "family": "Plus Jakarta Sans" }, "body": { "family": "Inter" } },
   "style": { "keywords": ["modern", "clean", "medical"] }
 }
 ```
 
-### Phase 2 → Phase 3 : brand.json → React tokens
+### Phase 2 -> Phase 3: brand.json -> React tokens
 
 ```
-design-system-engineer lit brand.json
-  → génère brand-tokens.css :
+design-system-engineer reads brand.json
+  -> generates brand-tokens.css:
       --color-primary: #2563EB;
       --font-display: 'Plus Jakarta Sans', sans-serif;
-  → étend tailwind.config.ts :
+  -> extends tailwind.config.ts:
       colors: { primary: { DEFAULT: '#2563EB', 600: '#2563EB' } }
-  → crée Hero.tsx :
+  -> creates Hero.tsx:
       <section className="bg-primary-600 text-white">
-        <h1 className="font-display text-5xl">NovaSanté</h1>
+        <h1 className="font-display text-5xl">NovaHealth</h1>
       </section>
 ```
 
-### Phase 3 → Phase 4 : Composants → Design System
+### Phase 3 -> Phase 4: Components -> Design System
 
 ```
-design-system-engineer extrait les tokens de tailwind.config.ts
-  → produit tokens/colors.ts (avec branded types HexColor)
-  → produit Button.tsx (variants primary=#2563EB, secondary=#10B981)
-  → produit Button.stories.md (props, variants, accessibility)
-  → produit tailwind.preset.ts (partageable entre projets)
+design-system-engineer extracts tokens from tailwind.config.ts
+  -> produces tokens/colors.ts (with branded types HexColor)
+  -> produces Button.tsx (variants primary=#2563EB, secondary=#10B981)
+  -> produces Button.stories.md (props, variants, accessibility)
+  -> produces tailwind.preset.ts (shareable across projects)
 ```
 
-### Phase 2 → Phase 5 : brand.json → Carrousels
+### Phase 2 -> Phase 5: brand.json -> Carousels
 
 ```
-carousel-copywriter rédige 10 slides (copy.md)
-  → visual-designer lit brand.json → palette #2563EB, #10B981
-    → génère slide-01.png avec prompt incluant les hex codes
-    → utilise slide-01 comme référence de style pour slides 02-10
-  → export .pptx avec fontFace dérivé de brand.json.typography.display
+carousel-copywriter writes 10 slides (copy.md)
+  -> visual-designer reads brand.json -> palette #2563EB, #10B981
+    -> generates slide-01.png with prompt including hex codes
+    -> uses slide-01 as style reference for slides 02-10
+  -> exports .pptx with fontFace derived from brand.json.typography.display
 ```
 
-## Hooks — Garde-fous créatifs
+## Hooks — Creative Guardrails
 
-Le plugin intègre un système de hooks inspiré de `ai-craftsman-superpowers`, adapté aux dérives spécifiques du branding et de la création.
+The plugin integrates a hooks system inspired by `ai-craftsman-superpowers`, adapted to the specific pitfalls of branding and creative work.
 
 ### bias-detector.sh (UserPromptSubmit)
 
-Détecte 6 biais cognitifs sur chaque message utilisateur :
+Detects 6 cognitive biases on each user message:
 
-| Biais | Déclencheur | Risque |
-|-------|-------------|--------|
-| **Brief Drift** | "change la palette", "repartir de zéro" | Perte de cohérence avec le brief validé |
-| **Perfectionnisme DA** | "encore une variante", "affine" | Boucle infinie d'itération sans livrer |
-| **Phase Skip** | "saute cette phase", "directement" | Assets sans fondation DA = incohérence |
-| **Scope Creep Visuel** | "et aussi", "en plus", "rajoute" | Dilution de qualité |
-| **Palette Anarchie** | "ajoute du rouge", "autre couleur" | Briser la charte brand.json |
-| **Accélération** | "vite", "urgent", "rush" | Branding bâclé = refaire 3x |
+| Bias | Trigger | Risk |
+|------|---------|------|
+| **Brief Drift** | "change the palette", "start over" | Loss of consistency with the validated brief |
+| **DA Perfectionism** | "one more variant", "refine" | Infinite iteration loop without delivering |
+| **Phase Skip** | "skip this phase", "directly" | Assets without DA foundation = inconsistency |
+| **Visual Scope Creep** | "and also", "plus", "add" | Quality dilution |
+| **Palette Anarchy** | "add red", "another color" | Breaking the brand.json guidelines |
+| **Rush Mode** | "fast", "urgent", "rush" | Sloppy branding = redo 3x |
 
 ### brand-consistency-check.sh (PostToolUse Write|Edit)
 
-Vérifie la cohérence brand sur chaque fichier écrit/modifié :
-- Couleurs hex hardcodées dans `.tsx`/`.ts` (devrait utiliser les tokens)
-- Styles inline avec couleurs (devrait utiliser les classes Tailwind)
-- CSS custom properties hors convention (`--color-*`, `--font-*`, `--radius-*`)
+Checks brand consistency on every written/modified file:
+- Hardcoded hex colors in `.tsx`/`.ts` (should use tokens)
+- Inline styles with colors (should use Tailwind classes)
+- CSS custom properties outside convention (`--color-*`, `--font-*`, `--radius-*`)
 
-Les deux hooks sont **non-bloquants** (exit 0) — ils avertissent, ne bloquent jamais.
+Both hooks are **non-blocking** (exit 0) — they warn, never block.
 
-## Évolutions possibles
+## Possible Evolutions
 
-| Évolution | Impact | Principe |
+| Evolution | Impact | Principle |
 |-----------|--------|----------|
-| Agent Teams mode | Agents deviennent teammates, art-director = lead | OCP (ADR-009) |
-| Nouveau backend image (Flux, DALL-E) | Modifier le template script dans les skills | LSP |
-| Nouveau BC (Email Templates) | Ajouter `skills/email-templates/` | OCP |
-| Volume de références > 50 fichiers | Ajouter un index ou RAG léger | ADR future |
-| Marketplace officiel Anthropic | Soumettre via formulaire in-app | Distribution |
+| Agent Teams mode | Agents become teammates, art-director = lead | OCP (ADR-009) |
+| New image backend (Flux, DALL-E) | Modify the script template in skills | LSP |
+| New BC (Email Templates) | Add `skills/email-templates/` | OCP |
+| Reference volume > 50 files | Add an index or lightweight RAG | Future ADR |
+| Official Anthropic Marketplace | Submit via in-app form | Distribution |

@@ -1,50 +1,50 @@
-# ADR-008: Social Media Carousels comme Bounded Context
+# ADR-008: Social Media Carousels as a Bounded Context
 
 **Date**: 2026-03-14
 **Status**: accepted
 
 ## Context
 
-Le pipeline brand-to-code s'arrêtait à la Phase 4 (Design System). L'utilisateur a besoin de générer des carrousels LinkedIn/Instagram pour l'acquisition, utilisant la même identité visuelle. La question est : ce besoin fait-il partie d'un BC existant ou nécessite-t-il un nouveau BC ?
+The brand-to-code pipeline stopped at Phase 4 (Design System). Users need to generate LinkedIn/Instagram carousels for acquisition, using the same visual identity. The question is: does this need belong to an existing BC or does it require a new one?
 
 ## Decision
 
-Créer un **nouveau Bounded Context** "Social Media Acquisition" avec un skill dédié `social-carousels` et un agent spécialisé `carousel-copywriter`.
+Create a **new Bounded Context** "Social Media Acquisition" with a dedicated `social-carousels` skill and a specialized `carousel-copywriter` agent.
 
 ## Rationale
 
-### Pourquoi un nouveau BC
+### Why a new BC
 
-Le carrousel a son propre langage ubiquitaire distinct des autres contextes :
-- **Carousel** (agrégat : 10 slides, plateforme, type)
-- **Slide** (value object : rôle, contenu, visuel)
-- **Hook** (value object : stratégie, lignes, levier psychologique)
-- **Copy** (value object : ton, contraintes mots, style)
+The carousel has its own distinct ubiquitous language, separate from other contexts:
+- **Carousel** (aggregate: 10 slides, platform, type)
+- **Slide** (value object: role, content, visual)
+- **Hook** (value object: strategy, lines, psychological lever)
+- **Copy** (value object: tone, word constraints, style)
 
-Ce vocabulaire n'existe dans aucun des BC existants. Le forcer dans `brand-visuals` violerait SRP (le skill aurait deux raisons de changer : évolution de la génération d'images ET évolution du copywriting social).
+This vocabulary does not exist in any of the existing BCs. Forcing it into `brand-visuals` would violate SRP (the skill would have two reasons to change: evolution of image generation AND evolution of social copywriting).
 
-### Pourquoi un seul skill (pas LinkedIn + Instagram séparés)
+### Why a single skill (not separate LinkedIn + Instagram skills)
 
-- Les deux plateformes partagent le même format (1080x1080, slides séquentielles)
-- Le copywriting est identique (structure 10 slides, mêmes principes psychologiques)
-- La différenciation est dans l'export, pas dans la création
-- Deux skills créeraient de la duplication sans valeur ajoutée (violation DRY)
+- Both platforms share the same format (1080x1080, sequential slides)
+- The copywriting is identical (10-slide structure, same psychological principles)
+- The differentiation is in the export, not in the creation
+- Two skills would create duplication without added value (DRY violation)
 
-### Structure avec fichiers supporting
+### Structure with supporting files
 
-Le skill utilise des fichiers supporting (spec Anthropic) pour rester sous 500 lignes :
-- `SKILL.md` — orchestrateur (workflow, génération, export)
-- `copywriting-rules.md` — règles de copywriting (loaded on demand)
-- `hook-strategies.md` — matrice des 6 stratégies de hooks (loaded on demand)
+The skill uses supporting files (Anthropic spec) to stay under 500 lines:
+- `SKILL.md` — orchestrator (workflow, generation, export)
+- `copywriting-rules.md` — copywriting rules (loaded on demand)
+- `hook-strategies.md` — matrix of 6 hook strategies (loaded on demand)
 
-### Intégration dans le pipeline
+### Pipeline integration
 
-Le carrousel consomme `brand.json` comme tous les autres BC downstream (DIP respecté). Il devient la Phase 5 du `brand-pipeline`.
+The carousel consumes `brand.json` like all other downstream BCs (DIP respected). It becomes Phase 5 of the `brand-pipeline`.
 
 ## Consequences
 
-- Le pipeline passe de 4 à 5 phases
-- `knowledge/carousel-references/` ajouté pour les exemples et méthodologies
-- L'agent `carousel-copywriter` est spécialisé en copywriting (séparation des concerns avec `visual-designer`)
-- Le skill est utilisable indépendamment du pipeline (ISP)
-- L'export `.pptx` pour Canva introduit une dépendance optionnelle sur `pptxgenjs`
+- The pipeline grows from 4 to 5 phases
+- `knowledge/carousel-references/` added for examples and methodologies
+- The `carousel-copywriter` agent specializes in copywriting (separation of concerns with `visual-designer`)
+- The skill is usable independently of the pipeline (ISP)
+- The `.pptx` export for Canva introduces an optional dependency on `pptxgenjs`

@@ -1,0 +1,20 @@
+# Knowledge base (large files, PDFs, images)
+knowledge/
+
+# Development-only
+.git/
+.github/
+node_modules/
+*.log
+coverage/
+
+# Maintainer tooling (not part of plugin bundle)
+package.json
+package-lock.json
+scripts/
+creative-rag.db
+.rag-pages/
+
+# Internal docs
+CONTRIBUTING.md
+docs/adr/

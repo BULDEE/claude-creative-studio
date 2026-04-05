@@ -1,49 +1,58 @@
 ---
 name: brand-visuals
-description: Génère des visuels brandés (hero images, illustrations, bannières, OG images) via l'API Gemini (Nano Banana). Détecte automatiquement la DA du projet courant via Tailwind config, CSS variables, brand.json ou CLAUDE.md. Déclenché par 'visual', 'hero image', 'illustration', 'banner', 'OG image', 'brand asset', 'Nano Banana', 'visuel brandé', 'generate image'.
+description: Generates branded visuals (hero images, illustrations, banners, OG images) via Gemini (Nano Banana) or OpenAI (gpt-image-1). Automatically detects the current project's DA via Tailwind config, CSS variables, brand.json, or CLAUDE.md. Triggered by 'visual', 'hero image', 'illustration', 'banner', 'OG image', 'brand asset', 'Nano Banana', 'branded visual', 'generate image'.
 argument-hint: [asset-type] [subject]
 ---
 
-# Visuels Brandés — Gemini Image API (Nano Banana)
+# Branded Visuals — Multi-Provider Image Generation
 
-Génère des visuels cohérents avec l'identité visuelle du projet en cours.
+Generates visuals consistent with the current project's visual identity.
 
-## Prérequis
+## Prerequisites
 
-- `GEMINI_API_KEY` en variable d'environnement — si absente, rediriger vers `/claude-creative-studio:setup-gemini`
-- Clé gratuite : https://aistudio.google.com/apikey (~500 images/jour)
-- Référence API : voir [gemini-api-reference.md](../gemini-api-reference.md) pour les templates de génération et le fallback
+- Provider configured via `userConfig.image_provider`:
+  - `gemini` (default) → `GEMINI_API_KEY` required — free key: https://aistudio.google.com/apikey
+  - `openai` → `OPENAI_IMAGE_KEY` required
+- If key is missing → redirect to `/claude-creative-studio:setup-provider`
+- Full API reference: see [image-provider-reference.md](../image-provider-reference.md)
 
-## Modèles disponibles
+## Available models
 
-| Modèle | API ID | Usage | Free tier |
-|--------|--------|-------|-----------|
-| Nano Banana 2 | `gemini-3.1-flash-image-preview` | Itération rapide | ~500/jour |
-| Nano Banana Pro | `gemini-3-pro-image-preview` | Assets finaux 4K | ~3/jour |
+### Gemini (Nano Banana)
+| Model | API ID | Usage | Free tier |
+|-------|--------|-------|-----------|
+| Flash | `gemini-3.1-flash-image-preview` | Rapid iteration | ~500/day |
+| Pro | `gemini-3-pro-image-preview` | Final 4K assets | ~3/day |
 
-**Défaut** : `gemini-3.1-flash-image-preview` pour itérer, Pro pour les assets finaux.
+### OpenAI
+| Model | Usage | Pricing |
+|-------|-------|---------|
+| `gpt-image-1` | High quality, precise control | ~$0.04-0.19/image |
+| `dall-e-3` | Natural prompt, varied styles | ~$0.04-0.12/image |
 
-## Détection automatique de la DA
+**Default**: Flash (Gemini) or gpt-image-1 (OpenAI) for iteration.
 
-Détecter le contexte du projet plutôt qu'utiliser une palette hardcodée.
+## Automatic DA detection
 
-### Ordre de résolution (du plus spécifique au plus général)
+Detect the project context rather than using a hardcoded palette.
 
-1. **`brand.json`** ou `brand.yaml` dans la racine du projet ou `.claude/`
-2. **`tailwind.config.*`** → extraire `theme.extend.colors`
-3. **CSS custom properties** → scanner les fichiers CSS racine pour `--color-primary`, etc.
-4. **`.claude/CLAUDE.md`** du projet → chercher des mentions de palette, couleurs, style
-5. **`package.json`** → le champ `name` et `description` donnent le contexte produit
-6. **Demander à l'utilisateur** → si aucune source trouvée
+### Resolution order (most specific to most general)
 
-**Toujours afficher la palette détectée et demander validation avant de générer.**
+1. **`brand.json`** or `brand.yaml` at the project root or `.claude/`
+2. **`tailwind.config.*`** → extract `theme.extend.colors`
+3. **CSS custom properties** → scan root CSS files for `--color-primary`, etc.
+4. **`.claude/CLAUDE.md`** of the project → look for mentions of palette, colors, style
+5. **`package.json`** → the `name` and `description` fields give product context
+6. **Ask the user** → if no source is found
 
-### Format brand.json recommandé
+**Always display the detected palette and ask for validation before generating.**
+
+### Recommended brand.json format
 
 ```json
 {
-  "name": "MonProduit",
-  "tagline": "Description courte",
+  "name": "MyProduct",
+  "tagline": "Short description",
   "colors": {
     "primary": "#6366F1",
     "secondary": "#8B5CF6",
@@ -61,103 +70,81 @@ Détecter le contexte du projet plutôt qu'utiliser une palette hardcodée.
 
 ## Workflow
 
-### 1. Détecter la DA
-Suivre l'ordre de résolution ci-dessus. Afficher la palette trouvée.
+### 1. Detect the DA
+Follow the resolution order above. Display the detected palette.
 
-### 2. Définir le brief
-- **Type d'asset** : hero, feature, OG image, social, banner
-- **Sujet** : ce que l'image doit représenter
-- **Dimensions** : 16:9 (hero), 1:1 (social), 1200x630 (OG)
+### 2. Define the brief
+- **Asset type**: hero, feature, OG image, social, banner
+- **Subject**: what the image should represent
+- **Dimensions**: 16:9 (hero), 1:1 (social), 1200x630 (OG)
 
-### 3. Construire le prompt
+### 3. Build the prompt
 
 ```
-[TYPE] pour [PRODUIT].
-Sujet : [DESCRIPTION].
-Style : [KEYWORDS BRAND].
-Palette : [HEX CODES].
-Ambiance : [MOOD].
-Composition : [LAYOUT].
-Format : [RATIO].
-Pas de texte sauf demande explicite. Qualité premium.
+[TYPE] for [PRODUCT].
+Subject: [DESCRIPTION].
+Style: [BRAND KEYWORDS].
+Palette: [HEX CODES].
+Mood: [MOOD].
+Composition: [LAYOUT].
+Format: [RATIO].
+No text unless explicitly requested. Premium quality.
 ```
 
-### 4. Générer
+### 4. Generate
 
-```javascript
-import { GoogleGenAI } from "@google/genai";
-import fs from "fs";
+Use the configured provider. See [image-provider-reference.md](../image-provider-reference.md) for complete code for each provider.
 
-const client = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-const response = await client.models.generateContent({
-  model: "gemini-3.1-flash-image-preview",
-  contents: [{ parts: [{ text: PROMPT }] }],
-  generationConfig: { responseModalities: ["IMAGE"] }
-});
+**Gemini**: `client.models.generateContent()` with `responseModalities: ["TEXT", "IMAGE"]`
+**OpenAI**: `client.images.generate()` with `response_format: "b64_json"` or URL
 
-const part = response.candidates[0].content.parts.find(p => p.inlineData);
-if (part) {
-  fs.mkdirSync("visuals", { recursive: true });
-  fs.writeFileSync(`visuals/asset-${Date.now()}.png`,
-    Buffer.from(part.inlineData.data, "base64"));
-}
-```
+### 5. Iterate with reference
 
-### 5. Itérer avec référence
+For series consistency, send a validated image as reference:
 
-Pour la cohérence, envoyer une image validée comme référence :
+**Gemini**: style transfer via `inlineData` in `contents.parts[]`
+**OpenAI**: `client.images.edit()` with `image` stream
 
-```javascript
-const ref = fs.readFileSync("visuals/approved-reference.png");
-const response = await client.models.generateContent({
-  model: "gemini-3.1-flash-image-preview",
-  contents: [{
-    parts: [
-      { inlineData: { mimeType: "image/png", data: ref.toString("base64") } },
-      { text: "Create a new visual in the exact same style. New subject: [DESC]." }
-    ]
-  }],
-  generationConfig: { responseModalities: ["IMAGE"] }
-});
-```
+See detailed patterns in [image-provider-reference.md](../image-provider-reference.md#style-transfer-image-de-reference).
 
-## Types d'assets
+## Asset types
 
 | Type | Ratio | Composition |
 |------|-------|-------------|
-| Hero | 16:9 / 21:9 | 40% espace texte overlay, high-impact |
-| Feature | 1:1 / 4:3 | Sujet centré, fond clean, un concept |
-| OG Image | 1200x630 | Lisible en petit, texte via Pro |
+| Hero | 16:9 / 21:9 | 40% space for text overlay, high-impact |
+| Feature | 1:1 / 4:3 | Centered subject, clean background, one concept |
+| OG Image | 1200x630 | Readable at small size, text via Pro |
 | Social | 1:1 / 16:9 | Eye-catching, brand-consistent |
-| Banner | variable | Haut contraste, éléments minimaux |
+| Banner | variable | High contrast, minimal elements |
 
 ## Standards
 
-- **Itérer** : 3-5 variantes minimum, sélectionner, raffiner
-- **Cohérence** : une fois un style validé, l'utiliser en référence pour la suite
-- **Pas de texte par défaut** : sauf demande explicite
-- **Fidélité couleur** : toujours inclure les hex codes dans le prompt
+- **Iterate**: 3-5 variants minimum, select, refine
+- **Consistency**: once a style is validated, use it as reference for the rest
+- **No text by default**: unless explicitly requested
+- **Color fidelity**: always include hex codes in the prompt
 
-## Fallback si Nano Banana échoue
+## Fallback if generation fails
 
-Si la génération échoue (quota, erreur API, image non conforme) :
-1. **Simplifier le prompt** — retirer les hex codes, garder 3 mots-clés de style max
-2. **Réduire la complexité** — demander une composition plus simple (fond uni + sujet centré)
-3. **Si toujours en échec** — documenter le prompt détaillé dans un fichier `visual-brief.md` pour que l'utilisateur génère manuellement via AI Studio
+If generation fails (quota, API error, non-conforming image):
+1. **Simplify the prompt** — remove hex codes, keep 3 style keywords max
+2. **Reduce complexity** — request a simpler composition (solid background + centered subject)
+3. **Switch model** — Flash → Pro (Gemini) or dall-e-3 → gpt-image-1 (OpenAI)
+4. **If still failing** — document the detailed prompt in a `visual-brief.md` file for manual generation
 
 <avoid>
-- Palette hardcodée sans vérifier le contexte projet
-- Visuels stock-photo génériques
-- Style incohérent entre les pages
-- Texte dans les images sans Nano Banana Pro
-- Générer sans brief
-- Clés API hardcodées
+- Hardcoded palette without checking project context
+- Generic stock-photo visuals
+- Inconsistent style across pages
+- Text in images without Nano Banana Pro
+- Generating without a brief
+- Hardcoded API keys
 </avoid>
 
 <example>
-**Brief** : Hero image pour une fintech, palette brand.json détectée (#6366F1, #8B5CF6, #06B6D4)
+**Brief**: Hero image for a fintech, brand.json palette detected (#6366F1, #8B5CF6, #06B6D4)
 
-**Prompt construit** :
+**Built prompt**:
 ```
 Hero image for fintech landing page.
 Style: modern, clean, premium. Abstract 3D shapes and gradients.
@@ -167,14 +154,14 @@ Composition: 40% left for text overlay, key visual right.
 Format: 16:9. No text. Premium quality.
 ```
 
-**Self-check** : palette fidèle, espace texte suffisant, pas de texte dans l'image, mood cohérent avec les keywords brand.json.
+**Self-check**: faithful palette, sufficient text space, no text in image, mood consistent with brand.json keywords.
 </example>
 
-## Self-check avant livraison
+## Self-check before delivery
 
-Avant de présenter un visuel, vérifier :
-1. La palette utilisée correspond aux hex codes de `brand.json` ou de la source détectée
-2. Le style respecte les keywords et le mood définis
-3. Il n'y a pas de texte dans l'image (sauf demande explicite + utilisation de Pro)
-4. L'espace pour l'overlay texte est suffisant (40% minimum pour hero/social)
-5. Le visuel fonctionne au ratio demandé
+Before presenting a visual, verify:
+1. The palette used matches the hex codes from `brand.json` or the detected source
+2. The style respects the defined keywords and mood
+3. There is no text in the image (unless explicitly requested + Pro is used)
+4. The text overlay space is sufficient (40% minimum for hero/social)
+5. The visual works at the requested ratio

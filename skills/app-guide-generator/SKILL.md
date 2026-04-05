@@ -1,57 +1,57 @@
 ---
 name: app-guide-generator
-description: Génère des guides utilisateurs complets avec screenshots automatiques via Playwright MCP. Déclenché par 'guide', 'documentation', 'tutoriel', 'walkthrough', 'onboarding', 'help doc', 'manuel utilisateur', 'screenshot guide'.
+description: Generates comprehensive user guides with automatic screenshots via Playwright MCP. Triggered by 'guide', 'documentation', 'tutorial', 'walkthrough', 'onboarding', 'help doc', 'user manual', 'screenshot guide'.
 argument-hint: [app-url]
 ---
 
-# Guides Utilisateurs avec Screenshots Automatiques
+# User Guides with Automatic Screenshots
 
-Automatise la création de guides professionnels en naviguant dans une application web via Playwright MCP.
+Automates the creation of professional guides by navigating a web application via Playwright MCP.
 
-## Prérequis
+## Prerequisites
 
-- **Playwright MCP** installé au niveau user :
+- **Playwright MCP** installed at user scope:
   ```bash
   claude mcp add --scope user playwright npx @playwright/mcp@latest
   ```
-- Application cible accessible (localhost ou URL publique)
+- Target application accessible (localhost or public URL)
 
-> **Note** : Le MCP Playwright est volontairement hors du plugin car il sert à de nombreux autres usages (tests, QA, scraping). Il est recommandé de l'installer en scope user une seule fois.
+> **Note**: The Playwright MCP is intentionally outside the plugin because it serves many other uses (testing, QA, scraping). It is recommended to install it at user scope once.
 
 ## Workflow
 
-### Phase 1 — Cadrage du guide
+### Phase 1 — Guide scoping
 
-Avant de toucher le navigateur, définir :
-- **Audience** : nouvel utilisateur, admin, développeur, client final
-- **Périmètre** : walkthrough complet OU feature/flow spécifique
-- **Pages/flows** : lister chaque écran et action utilisateur
-- **Format** : Markdown (défaut) ou PDF
+Before touching the browser, define:
+- **Audience**: new user, admin, developer, end customer
+- **Scope**: full walkthrough OR specific feature/flow
+- **Pages/flows**: list each screen and user action
+- **Format**: Markdown (default) or PDF
 
-Si non spécifié, demander à l'utilisateur. Proposer une table des matières avant de commencer.
+If not specified, ask the user. Propose a table of contents before starting.
 
-### Phase 2 — Authentification (si nécessaire)
+### Phase 2 — Authentication (if needed)
 
-Si l'application requiert un login :
-1. `browser_navigate` vers la page de login
-2. Informer l'utilisateur : "J'ai ouvert la page de connexion. Connectez-vous manuellement, puis dites-moi de continuer."
-3. Attendre la confirmation avant de poursuivre
+If the application requires login:
+1. `browser_navigate` to the login page
+2. Inform the user: "I've opened the login page. Log in manually, then tell me to continue."
+3. Wait for confirmation before proceeding
 
-**NE JAMAIS saisir de mots de passe ou identifiants.**
+**NEVER enter passwords or credentials.**
 
-### Phase 3 — Capture systématique
+### Phase 3 — Systematic capture
 
-Pour chaque page/écran du guide :
-1. **Naviguer** via `browser_navigate`
-2. **Attendre** le chargement complet (pas de spinners/skeletons visibles)
-3. **Capturer** le screenshot complet via `browser_take_screenshot`
-4. **Éléments spécifiques** si besoin (formulaires, modales, boutons)
-5. **Responsive** si demandé — `browser_resize` :
-   - Mobile : 375x667
-   - Tablet : 768x1024
-   - Desktop : 1440x900
+For each page/screen in the guide:
+1. **Navigate** via `browser_navigate`
+2. **Wait** for full load (no visible spinners/skeletons)
+3. **Capture** the full screenshot via `browser_take_screenshot`
+4. **Specific elements** if needed (forms, modals, buttons)
+5. **Responsive** if requested — `browser_resize`:
+   - Mobile: 375x667
+   - Tablet: 768x1024
+   - Desktop: 1440x900
 
-Convention de nommage :
+Naming convention:
 ```
 docs/guide/screenshots/
   01-dashboard-overview.png
@@ -60,64 +60,64 @@ docs/guide/screenshots/
   04-campaign-create-form-mobile.png
 ```
 
-### Phase 4 — Capture des flows interactifs
+### Phase 4 — Interactive flow capture
 
-Pour les processus multi-étapes :
-- Screenshot **avant et après** chaque action utilisateur
-- Décrire quel bouton/champ l'utilisateur doit utiliser
-- Capturer les **états de succès et d'erreur**
-- Capturer les **états vides** (avant données)
+For multi-step processes:
+- Screenshot **before and after** each user action
+- Describe which button/field the user should use
+- Capture **success and error states**
+- Capture **empty states** (before data)
 
-### Phase 5 — Assemblage du guide
+### Phase 5 — Guide assembly
 
 ```markdown
-# [Nom App] — Guide utilisateur
+# [App Name] — User Guide
 
-> Version : [date] | Audience : [cible]
+> Version: [date] | Audience: [target]
 
-## Table des matières
+## Table of Contents
 - [Section 1](#section-1)
 ...
 
-## 1. [Nom Section]
+## 1. [Section Name]
 
-### Objectif
-[Ce que l'utilisateur accomplit — 1-2 phrases]
+### Objective
+[What the user accomplishes — 1-2 sentences]
 
-### Étapes
+### Steps
 
-**1. [Description action]**
+**1. [Action description]**
 
-![Description](./screenshots/01-nom.png)
+![Description](./screenshots/01-name.png)
 
-[Explication concise de ce que l'utilisateur voit et fait.]
+[Concise explanation of what the user sees and does.]
 
-**2. [Action suivante]**
+**2. [Next action]**
 
-![Description](./screenshots/02-nom.png)
+![Description](./screenshots/02-name.png)
 
-### Points d'attention
-- [Pièges, astuces, avertissements]
+### Points of attention
+- [Pitfalls, tips, warnings]
 ```
 
-### Phase 6 — Livraison
+### Phase 6 — Delivery
 
-- `docs/guide/screenshots/` pour les images
-- `docs/guide/README.md` pour le guide
+- `docs/guide/screenshots/` for images
+- `docs/guide/README.md` for the guide
 
-## Standards de qualité
+## Quality standards
 
-- **Langue** : français par défaut sauf demande contraire
-- **Texte** : impératif et concis ("Cliquez sur..." pas "L'utilisateur peut cliquer...")
-- **Structure** : 1 action = 1 étape = 1 screenshot
-- **Viewport** : cohérent sur tous les screenshots sauf comparaison responsive
-- **Nommage** : descriptif, numéroté, zéro ambiguïté
+- **Language**: English by default unless otherwise requested
+- **Text**: imperative and concise ("Click on..." not "The user can click...")
+- **Structure**: 1 action = 1 step = 1 screenshot
+- **Viewport**: consistent across all screenshots unless comparing responsive layouts
+- **Naming**: descriptive, numbered, zero ambiguity
 
 ## Anti-patterns
 
-- ❌ Screenshots avant chargement complet (spinners visibles)
-- ❌ Données sensibles capturées (clés API, emails réels, mots de passe)
-- ❌ Screenshots avec erreurs console visibles
-- ❌ Guide sans table des matières
-- ❌ Screenshots sans contexte textuel
-- ❌ Assumer que l'utilisateur connaît l'app — écrire pour un débutant
+- Screenshots taken before full page load (visible spinners)
+- Sensitive data captured (API keys, real emails, passwords)
+- Screenshots with visible console errors
+- Guide without table of contents
+- Screenshots without textual context
+- Assuming the user knows the app — write for a beginner

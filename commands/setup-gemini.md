@@ -1,39 +1,39 @@
 ---
 name: setup-gemini
-description: Configure la clé API Gemini pour la génération d'images avec Nano Banana. Utiliser uniquement sur demande explicite de l'utilisateur.
+description: Configures the Gemini API key for image generation with Nano Banana. Use only on explicit user request.
 disable-model-invocation: true
 ---
 
-Guide l'utilisateur pour configurer sa clé API Gemini (gratuite) afin de générer des images avec Nano Banana.
+Guides the user through configuring their Gemini API key (free) to generate images with Nano Banana.
 
-## Vérification
+## Verification
 
-Vérifie d'abord si `GEMINI_API_KEY` est déjà configurée :
-- Tester `echo $GEMINI_API_KEY` via bash
-- Si la variable existe et n'est pas vide → informer l'utilisateur qu'il est prêt et arrêter
+First check if `GEMINI_API_KEY` is already configured:
+- Test `echo $GEMINI_API_KEY` via bash
+- If the variable exists and is not empty → inform the user they're ready and stop
 
 ## Configuration
 
-Si la clé n'est pas configurée :
+If the key is not configured:
 
-1. **Expliquer** : "Pour générer des images (logos, visuels), il faut une clé API Gemini. C'est gratuit : 500 images par jour."
+1. **Explain**: "To generate images (logos, visuals), you need a Gemini API key. It's free: 500 images per day."
 
-2. **Guider** vers https://aistudio.google.com/apikey
-   - Cliquer "Create API Key"
-   - Copier la clé
+2. **Guide** to https://aistudio.google.com/apikey
+   - Click "Create API Key"
+   - Copy the key
 
-3. **Demander** à l'utilisateur de coller sa clé
+3. **Ask** the user to paste their key
 
-4. **Ajouter** la clé dans le shell profile :
-   - Détecter le shell : `.zshrc` (macOS par défaut) ou `.bashrc`
-   - Vérifier que `GEMINI_API_KEY` n'est pas déjà dans le fichier
-   - Ajouter : `export GEMINI_API_KEY="la-clé"`
-   - Informer : "Exécutez `source ~/.zshrc` ou ouvrez un nouveau terminal"
+4. **Add** the key to the shell profile:
+   - Detect the shell: `.zshrc` (macOS default) or `.bashrc`
+   - Verify that `GEMINI_API_KEY` is not already in the file
+   - Add: `export GEMINI_API_KEY="the-key"`
+   - Inform: "Run `source ~/.zshrc` or open a new terminal"
 
-5. **Tester** : exécuter un appel minimal pour vérifier que la clé fonctionne
+5. **Test**: run a minimal call to verify the key works
 
 ## Important
 
-- Ne JAMAIS afficher la clé en clair dans les logs
-- Ne JAMAIS committer la clé dans un dépôt git
-- Si l'utilisateur est dans un contexte CI/CD, suggérer de passer par les secrets GitHub/GitLab
+- NEVER display the key in plaintext in logs
+- NEVER commit the key to a git repository
+- If the user is in a CI/CD context, suggest using GitHub/GitLab secrets

@@ -1,8 +1,8 @@
 # brand.json Schema — Single Source of Truth
 
-Le fichier `brand.json` est le contrat entre toutes les phases du pipeline. Produit en Phase 2, consommé par les Phases 3, 4 et 5.
+The `brand.json` file is the contract between all pipeline phases. Produced in Phase 2, consumed by Phases 3, 4, and 5.
 
-## Schema complet
+## Full Schema
 
 ```json
 {
@@ -80,38 +80,38 @@ Le fichier `brand.json` est le contrat entre toutes les phases du pipeline. Prod
 }
 ```
 
-## Champs obligatoires
+## Required Fields
 
-| Champ | Type | Description |
+| Field | Type | Description |
 |-------|------|-------------|
-| `name` | string | Nom de la marque |
-| `colors.primary` | object | Couleur principale avec hex, rgb, hsl |
-| `colors.secondary` | object | Couleur secondaire |
-| `colors.background` | object | Fond de page |
-| `colors.text.primary` | string | Couleur texte principal |
-| `typography.display` | object | Police d'affichage |
-| `typography.body` | object | Police de corps |
-| `style.keywords` | array | Mots-clés du style visuel |
+| `name` | string | Brand name |
+| `colors.primary` | object | Primary color with hex, rgb, hsl |
+| `colors.secondary` | object | Secondary color |
+| `colors.background` | object | Page background |
+| `colors.text.primary` | string | Primary text color |
+| `typography.display` | object | Display font |
+| `typography.body` | object | Body font |
+| `style.keywords` | array | Visual style keywords |
 
-## Champs optionnels
+## Optional Fields
 
-| Champ | Type | Description |
+| Field | Type | Description |
 |-------|------|-------------|
-| `tagline` | string | Accroche |
-| `direction` | string | Nom de la direction choisie |
-| `colors.accent` | object | Couleur d'accent |
-| `colors.semantic` | object | Couleurs sémantiques |
-| `typography.mono` | object | Police monospace |
-| `spacing` | object | Échelle d'espacement |
-| `borderRadius` | object | Rayons de bordure |
-| `shadows` | object | Ombres |
-| `logo` | object | Règles d'utilisation du logo |
+| `tagline` | string | Tagline |
+| `direction` | string | Chosen direction name |
+| `colors.accent` | object | Accent color |
+| `colors.semantic` | object | Semantic colors |
+| `typography.mono` | object | Monospace font |
+| `spacing` | object | Spacing scale |
+| `borderRadius` | object | Border radii |
+| `shadows` | object | Shadows |
+| `logo` | object | Logo usage rules |
 
-## Consommateurs
+## Consumers
 
-| Phase | Consomme | Produit |
-|-------|----------|---------|
-| Phase 2 | Direction choisie | `brand.json` |
-| Phase 3 | `brand.json` | `brand-tokens.css`, `tailwind.config.ts`, composants React |
+| Phase | Consumes | Produces |
+|-------|----------|----------|
+| Phase 2 | Chosen direction | `brand.json` |
+| Phase 3 | `brand.json` | `brand-tokens.css`, `tailwind.config.ts`, React components |
 | Phase 4 | `brand.json` + Phase 3 | `tokens/*.ts`, `components/*.tsx`, `tailwind.preset.ts` |
-| Phase 5 | `brand.json` | Visuels carrousels cohérents, palette slides |
+| Phase 5 | `brand.json` | Visually consistent carousel visuals, slide palette |

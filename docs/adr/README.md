@@ -1,25 +1,25 @@
 # Architecture Decision Records
 
-Ce dossier contient les ADR (Architecture Decision Records) du plugin Claude Creative Studio.
+This folder contains the ADRs (Architecture Decision Records) for the Claude Creative Studio plugin.
 
 ## Convention
 
-Chaque décision architecturale significative est documentée dans un ADR numéroté.
+Each significant architectural decision is documented in a numbered ADR.
 
-**Format** : [ADR template de Michael Nygard](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)
+**Format**: [ADR template by Michael Nygard](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)
 
-**Statuts** : `proposed` → `accepted` → `deprecated` / `superseded`
+**Statuses**: `proposed` → `accepted` → `deprecated` / `superseded`
 
 ## Index
 
-| # | Titre | Statut | Date |
+| # | Title | Status | Date |
 |---|-------|--------|------|
-| [001](001-plugin-over-script.md) | Plugin Claude Code plutôt que script bash | accepted | 2026-03-14 |
-| [002](002-knowledge-base-as-mcp-filesystem.md) | Knowledge base via MCP Filesystem | accepted | 2026-03-14 |
-| [003](003-gemini-nano-banana-image-backend.md) | Gemini (Nano Banana) comme backend de génération d'images | accepted | 2026-03-14 |
-| [004](004-playwright-excluded-from-bundle.md) | Playwright MCP exclu du bundle plugin | accepted | 2026-03-14 |
-| [005](005-brand-detection-cascade.md) | Détection de DA par cascade contextuelle | accepted | 2026-03-14 |
-| [006](006-skill-per-bounded-context.md) | Un Skill par Bounded Context métier | accepted | 2026-03-14 |
+| [001](001-plugin-over-script.md) | Claude Code Plugin over Bash Script | accepted | 2026-03-14 |
+| [002](002-knowledge-base-as-mcp-filesystem.md) | Knowledge Base via MCP Filesystem | accepted | 2026-03-14 |
+| [003](003-gemini-nano-banana-image-backend.md) | Gemini (Nano Banana) as Image Generation Backend | accepted | 2026-03-14 |
+| [004](004-playwright-excluded-from-bundle.md) | Playwright MCP Excluded from Plugin Bundle | accepted | 2026-03-14 |
+| [005](005-brand-detection-cascade.md) | Brand Identity Detection via Contextual Cascade | accepted | 2026-03-14 |
+| [006](006-skill-per-bounded-context.md) | One Skill per Business Bounded Context | accepted | 2026-03-14 |
 | 007 | _(reserved)_ | — | — |
-| [008](008-social-carousel-bounded-context.md) | Social Media Carousels comme Bounded Context | accepted | 2026-03-14 |
-| [009](009-agents-over-teams.md) | Agents spécialisés plutôt que Agent Teams | accepted | 2026-03-14 |
+| [008](008-social-carousel-bounded-context.md) | Social Media Carousels as a Bounded Context | accepted | 2026-03-14 |
+| [009](009-agents-over-teams.md) | Specialized Agents over Agent Teams | accepted | 2026-03-14 |

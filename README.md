@@ -1,6 +1,6 @@
 # Claude Creative Studio
 
-Plugin Claude Code pour le pipeline complet brand-to-code : logos, visuels brandés, design system React, carrousels LinkedIn/Instagram, et guides utilisateurs automatisés.
+Claude Code plugin for generating professional Design Applications (DA): logos, 3D renders, interactive HTML brandbook, branded visuals, React design system, LinkedIn/Instagram carousels, and automated user guides.
 
 ## Installation
 
@@ -9,132 +9,210 @@ Plugin Claude Code pour le pipeline complet brand-to-code : logos, visuels brand
 /plugin install claude-creative-studio@claude-creative-studio
 ```
 
-Ou en local pour tester :
+Or locally for testing:
 
 ```bash
 claude --plugin-dir /path/to/claude-creative-studio
 ```
 
-## Ce que vous pouvez faire
+## What You Can Do
 
-### Créer un logo
-
-```
-Crée un logo pour "MonEntreprise" dans le secteur santé
-```
-
-Claude consulte vos références DA, propose 3 pistes créatives, et génère des visuels via Nano Banana (Gemini).
-
-### Générer des visuels brandés
+### Create a logo + 3D proposals
 
 ```
-Génère un hero image pour la landing page
+Create a logo for "MyCompany" in the healthcare sector
 ```
 
-Claude **détecte automatiquement** la palette de votre projet (Tailwind, CSS, `brand.json`) et génère des visuels cohérents.
+Claude consults your DA references, proposes 3 creative directions, generates visuals, then **systematically proposes 3 cinematic 3D renders** (obsidian, concrete, frosted glass) with different materials.
 
-### Créer des carrousels LinkedIn/Instagram
-
-```
-Crée un carrousel LinkedIn sur le copywriting
-```
-
-Claude génère un carrousel viral de 10 slides avec hooks psychologiques, visuels brandés par slide, et export `.pptx` pour Canva (ou Figma).
-
-### Lancer le pipeline complet
+### Generate an interactive DA
 
 ```
-Lance le brand pipeline pour "MonProduit"
+Generate the HTML DA for my project
 ```
 
-Pipeline en 5 phases avec validation utilisateur à chaque étape :
-1. **Exploration** — 3 directions artistiques
-2. **Brandbook** — direction choisie complète
-3. **Design Tokens** — CSS/JSON/SCSS
-4. **Design System** — composants React + Tailwind preset
-5. **Social Carousels** — carrousels d'acquisition
+Claude reads `brand.json` and generates a professional-quality single-file HTML with 16 sections: symbol, moodboard, palette, font exploration, typography, construction grid, clear zone, dark/light components, specifications, landing preview, data-viz, brand applications, states, design tokens. Vercel/Linear standard.
 
-### Créer un guide utilisateur
+### Export the full branding
 
 ```
-Crée un guide utilisateur de monapp.com avec des screenshots
+Export the full branding to a branding/ folder
 ```
 
-Claude navigue dans l'app via Playwright, capture les écrans, et assemble un guide Markdown complet.
+Claude compiles all assets: 8 logo variants (flat, lockup, mono, app-icons), 3-5 3D renders, social assets, `brand-tokens.css`, `tailwind.preset.ts`, HTML DA, `favicon.ico`, README.
 
-### Configurer Gemini
+### Generate branded visuals
 
 ```
-/claude-creative-studio:setup-gemini
+Generate a hero image for the landing page
 ```
 
-Configuration guidée de la clé API Gemini (gratuite, 500 images/jour).
+Claude **automatically detects** your project's palette (Tailwind, CSS, `brand.json`) and generates consistent visuals via Gemini or OpenAI.
 
-## Composants
+### Create LinkedIn/Instagram carousels
 
-| Composant | Type | Description |
+```
+Create a LinkedIn carousel about copywriting
+```
+
+Claude generates a viral 10-slide carousel with psychological hooks, branded visuals per slide, and `.pptx` export for Canva (or Figma).
+
+### Run the full pipeline
+
+```
+Run the brand pipeline for "MyProduct"
+```
+
+8-phase pipeline with user validation at each step:
+1. **Exploration** — 3+ artistic directions
+2. **Brandbook** — selected direction + `brand.json`
+3. **HTML DA** — interactive Design Application (the-[name].html)
+4. **3D Logos** — 3-5 cinematic renders with different materials
+5. **Brand Export** — complete `branding/` folder with all assets
+6. **Landing Page** — React + Tailwind + tokens
+7. **Design System** — components + Tailwind preset
+8. **Social Carousels** — acquisition carousels
+
+### Create a user guide
+
+```
+Create a user guide for myapp.com with screenshots
+```
+
+Claude navigates the app via Playwright, captures screens, and assembles a complete Markdown guide.
+
+### Configure the image provider
+
+```
+/claude-creative-studio:setup-provider
+```
+
+Guided configuration of the provider (free Gemini or paid OpenAI).
+
+### Index brandbook references (RAG)
+
+```
+/claude-creative-studio:ingest-references
+```
+
+Index your professional brandbook PDFs and image folders into a searchable knowledge base. The plugin uses these references to calibrate prompts, construction grids, and 3D material specs. Gemini Vision analyzes each page — free within the 1,500/day limit.
+
+## Components
+
+| Component | Type | Description |
 |-----------|------|-------------|
-| `design-logo` | Skill | Création de logos avec références DA |
-| `brand-visuals` | Skill | Visuels brandés avec détection auto de la DA |
-| `social-carousels` | Skill | Carrousels LinkedIn/Instagram viraux (10 slides + export Canva) |
-| `brand-pipeline` | Skill | Pipeline brand-to-code en 5 phases avec validation gates |
-| `app-guide-generator` | Skill | Guides avec screenshots Playwright |
-| `setup-gemini` | Command | Configuration guidée clé Gemini |
-| `art-director` | Agent | Lead créatif, valide la DA (opus) |
-| `visual-designer` | Agent | Génère visuels via Nano Banana (sonnet) |
-| `carousel-copywriter` | Agent | Copywriting carrousels viraux (sonnet) |
-| `design-system-engineer` | Agent | React tokens, composants, Tailwind (sonnet) |
-| `creative-knowledge` | MCP | Accès aux fichiers de référence |
+| `design-logo` | Skill | Logo creation + systematic 3D proposals |
+| `brand-visuals` | Skill | Branded visuals with auto DA detection |
+| `brand-da` | Skill | Interactive single-file HTML DA (16 sections) |
+| `brand-export` | Skill | Full branding/ folder export (logos, 3D, tokens, DA) |
+| `social-carousels` | Skill | Viral LinkedIn/Instagram carousels (10 slides + Canva export) |
+| `brand-pipeline` | Skill | Brand-to-code pipeline in 8 phases with validation gates |
+| `app-guide-generator` | Skill | Guides with Playwright screenshots |
+| `setup-provider` | Command | Guided image provider configuration (Gemini/OpenAI) |
+| `ingest-references` | Command | Index brandbook references into RAG database |
+| `setup-gemini` | Command | Guided Gemini key configuration (legacy) |
+| `art-director` | Agent | Creative lead, validates the DA (opus) |
+| `visual-designer` | Agent | Generates visuals via configured provider (sonnet) |
+| `carousel-copywriter` | Agent | Viral carousel copywriting (sonnet) |
+| `design-system-engineer` | Agent | React tokens, components, Tailwind (sonnet) |
+| `creative-knowledge` | MCP | Access to reference files |
 
-## Ajouter vos références
+## Image Provider
 
-Déposez vos fichiers dans le dossier `knowledge/` du plugin :
+The plugin supports two professional image providers:
+
+| Provider | Variable | Cost | Quality |
+|----------|----------|------|---------|
+| **Gemini** (default) | `GEMINI_API_KEY` | Free (~500/day Flash) | Excellent |
+| **OpenAI** | `OPENAI_IMAGE_KEY` | ~$0.04-0.19/image | Excellent |
+
+### Configuration
+
+```
+/claude-creative-studio:setup-provider
+```
+
+Or manually:
+
+```bash
+# Gemini (free)
+echo 'export GEMINI_API_KEY="your-key"' >> ~/.zshrc
+
+# OpenAI (paid)
+echo 'export OPENAI_IMAGE_KEY="your-key"' >> ~/.zshrc
+
+source ~/.zshrc
+```
+
+To switch providers:
+```
+/plugin config claude-creative-studio image_provider openai
+```
+
+## Creative Temperature
+
+The `creative_temperature` parameter controls the diversity of 3D renders:
+
+| Level | 3D Renders | Materials |
+|-------|-----------|-----------|
+| `conservative` | 3 | Same material, different lighting |
+| `balanced` (default) | 3 | Premium + Architectural + Luminous |
+| `adventurous` | 5 | All 3 + Liquid + Holographic |
+
+## API Usage & Costs
+
+This plugin generates images via external APIs. Each generation consumes credits/quota.
+
+### Estimated cost per operation
+
+| Operation | Images generated | Gemini cost (free) | OpenAI cost |
+|-----------|----------------|-----------------------|-------------|
+| Logo (3 directions) | 9-15 images | ~15 out of 500/day | ~$0.60-1.20 |
+| 3D proposals (balanced) | 3 images | ~3 out of 500/day | ~$0.12-0.57 |
+| 3D proposals (adventurous) | 5 images | ~5 out of 500/day | ~$0.20-0.95 |
+| Full Brand Export | 12-16 images | ~16 out of 500/day | ~$0.48-3.04 |
+| Carousel (10 slides) | 10 images | ~10 out of 500/day | ~$0.40-1.90 |
+| **Full pipeline** | **~40-50 images** | **~50 out of 500/day** | **~$2-8** |
+
+### Agents
+
+The `art-director` agent uses the **opus** model (creative decisions). Other agents use **sonnet** (execution).
+
+### Cost control
+
+- **Gemini (default)**: free with ~500 images/day — sufficient for a full pipeline
+- **OpenAI**: paid — monitor usage via the OpenAI dashboard
+- **Conservative temperature**: reduces 3D renders from 5 to 3 images
+- **Partial phases**: stop at any pipeline phase
+
+## Adding Your References
+
+Place your files in the plugin's `knowledge/` folder:
 
 ```
 knowledge/
-├── logo-references/        ← PDFs de chartes graphiques, logos existants
-├── brand-assets/           ← Logos finaux, palettes, guidelines
-└── carousel-references/    ← Exemples carrousels, méthodologies copywriting
+├── logo-references/        <- Brand guideline PDFs, existing logos
+├── brand-assets/           <- Final logos, palettes, guidelines
+└── carousel-references/    <- Carousel examples, copywriting methodologies
 ```
 
-Claude les consultera automatiquement lors de la création.
+Claude will automatically consult them during creation.
 
-## Prérequis
+## Automatic DA Detection
 
-- **Claude Code** (dernière version)
-- **Node.js 18+**
-- **Playwright MCP** (pour les guides uniquement) :
-  ```bash
-  claude mcp add --scope user playwright npx @playwright/mcp@latest
-  ```
+The `brand-visuals` skill looks for the color palette in this order:
 
-## Génération d'images (optionnel)
-
-Pour que Claude génère des images réelles (pas juste des descriptions) :
-
-1. Allez sur **https://aistudio.google.com/apikey**
-2. Créez une clé API gratuite (500 images/jour)
-3. Lancez `/claude-creative-studio:setup-gemini` ou ajoutez manuellement :
-   ```bash
-   echo 'export GEMINI_API_KEY="votre-clé"' >> ~/.zshrc
-   source ~/.zshrc
-   ```
-
-## Détection automatique de la DA
-
-Le skill `brand-visuals` cherche la palette de couleurs dans cet ordre :
-
-1. `brand.json` / `brand.yaml` à la racine du projet
-2. `tailwind.config.*` → `theme.extend.colors`
+1. `brand.json` / `brand.yaml` at the project root
+2. `tailwind.config.*` -> `theme.extend.colors`
 3. CSS custom properties (`--color-primary`, etc.)
-4. `.claude/CLAUDE.md` du projet
-5. Demande à l'utilisateur
+4. `.claude/CLAUDE.md` in the project
+5. Asks the user
 
-### Exemple `brand.json`
+### Example `brand.json`
 
 ```json
 {
-  "name": "MonProduit",
+  "name": "MyProduct",
   "colors": {
     "primary": "#6366F1",
     "secondary": "#8B5CF6",
@@ -147,46 +225,76 @@ Le skill `brand-visuals` cherche la palette de couleurs dans cet ordre :
 }
 ```
 
-## Structure du plugin
+## Prerequisites
+
+- **Claude Code** (latest version)
+- **Node.js 18+**
+- **Image provider**: Gemini (free) or OpenAI (paid) — see setup above
+- **Playwright MCP** (for guides only):
+  ```bash
+  claude mcp add --scope user playwright npx @playwright/mcp@latest
+  ```
+
+## Plugin Structure
 
 ```
 claude-creative-studio/
 ├── .claude-plugin/
-│   └── plugin.json              # Manifest du plugin
-├── .mcp.json                    # MCP auto-configuré (knowledge base)
+│   ├── plugin.json              # Plugin manifest
+│   ├── marketplace.json         # Marketplace registry
+│   └── ignore                   # Distribution exclusions
+├── .mcp.json                    # Auto-configured MCP (knowledge base)
 ├── skills/
-│   ├── design-logo/             # BC: Logo Design
+│   ├── design-logo/             # BC: Logo Design + 3D proposals
 │   │   └── SKILL.md
 │   ├── brand-visuals/           # BC: Brand Visual Production
+│   │   └── SKILL.md
+│   ├── brand-da/                # BC: Interactive HTML DA
+│   │   └── SKILL.md
+│   ├── brand-export/            # BC: Branding Folder Export
 │   │   └── SKILL.md
 │   ├── social-carousels/        # BC: Social Media Acquisition
 │   │   ├── SKILL.md
 │   │   ├── copywriting-rules.md
 │   │   └── hook-strategies.md
-│   ├── brand-pipeline/          # Process Manager (5 phases)
+│   ├── brand-pipeline/          # Process Manager (8 phases)
 │   │   ├── SKILL.md
 │   │   ├── phase-templates.md
-│   │   └── brand-json-schema.md
-│   └── app-guide-generator/     # BC: User Documentation
-│       └── SKILL.md
+│   │   ├── brand-json-schema.md
+│   │   ├── direction-preview.md  # Visual direction comparison templates
+│   │   └── preview-server.sh     # Embedded HTTP server for direction preview
+│   ├── app-guide-generator/     # BC: User Documentation
+│   │   └── SKILL.md
+│   └── image-provider-reference.md  # Unified API reference (Gemini + OpenAI)
+├── scripts/                       # Maintainer tooling (not in plugin bundle)
+│   ├── ingest.sh                # RAG ingestion orchestrator
+│   ├── search.sh                # RAG search (bash + sqlite3)
+│   ├── construction-grid.mjs    # Parametric SVG grid generator
+│   └── lib/
+│       ├── extract-pages.sh     # PDF → PNG page extraction
+│       ├── describe-page.mjs    # Gemini Vision page analysis
+│       └── embed-store.mjs      # SQLite FTS5 storage
 ├── commands/
-│   └── setup-gemini.md          # Config guidée Gemini
+│   ├── setup-provider.md        # Guided image provider config
+│   ├── ingest-references.md     # Guided RAG ingestion
+│   └── setup-gemini.md          # Guided Gemini config (legacy)
 ├── agents/
-│   ├── art-director.md          # Lead créatif (opus)
-│   ├── visual-designer.md       # Spécialiste Nano Banana (sonnet)
-│   ├── carousel-copywriter.md   # Copywriter carrousels (sonnet)
+│   ├── art-director.md          # Creative lead (opus)
+│   ├── visual-designer.md       # Image specialist (sonnet)
+│   ├── carousel-copywriter.md   # Carousel copywriter (sonnet)
 │   └── design-system-engineer.md # React/Tailwind/DDD (sonnet)
 ├── knowledge/
-│   ├── logo-references/         # Références DA
-│   ├── brand-assets/            # Assets finaux
-│   ├── carousel-references/     # Exemples carrousels + méthodologies
+│   ├── logo-references/         # DA references
+│   ├── brand-assets/            # Final assets
+│   ├── carousel-references/     # Carousel examples + methodologies
 │   └── README.md
 ├── hooks/
-│   ├── hooks.json                 # Registration des hooks plugin
-│   ├── bias-detector.sh           # 6 biais cognitifs créatifs (UserPromptSubmit)
-│   └── brand-consistency-check.sh # Cohérence brand sur Write|Edit (PostToolUse)
+│   ├── hooks.json               # Plugin hooks registration
+│   ├── session-start.sh         # Brand context detection (SessionStart)
+│   ├── bias-detector.sh         # 6 creative cognitive biases (UserPromptSubmit)
+│   └── brand-consistency-check.sh # Brand consistency on Write|Edit (PostToolUse)
 ├── docs/
-│   ├── ARCHITECTURE.md          # Architecture DDD/Clean
+│   ├── ARCHITECTURE.md          # DDD/Clean Architecture
 │   └── adr/                     # Architecture Decision Records
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
@@ -194,38 +302,41 @@ claude-creative-studio/
 └── README.md
 ```
 
-## Migration v1 → v2
+## Output — branding/ Folder
 
-### Changements breaking
+After a full pipeline or `brand-export`, the generated folder contains:
 
-| v1.0.0 | v2.0.0 | Action |
-|--------|--------|--------|
-| 3 skills (logo, visuals, guide) | 5 skills + pipeline | Aucune — rétrocompatible |
-| Pas d'agents | 4 agents spécialisés | Aucune — les agents sont additifs |
-| `brand-visuals` génère sans fallback | Fallback 3 niveaux si Nano Banana échoue | Aucune — amélioration |
-| Pas de supporting files | `copywriting-rules.md`, `hook-strategies.md`, etc. | Aucune — transparents |
-| Templates Gemini dans chaque skill | `gemini-api-reference.md` centralisé | Si custom : migrer vers le fichier partagé |
+```
+branding/
+├── brand.json                    # Source of truth
+├── the-[name].html              # Interactive DA (open in browser)
+├── brand-tokens.css             # CSS custom properties
+├── tailwind.preset.ts           # Shareable Tailwind preset
+├── logos/
+│   ├── icon-flat-dark.png       # White logo on dark background
+│   ├── icon-flat-light.png      # Color logo on white background
+│   ├── icon-mono-black.png      # Black monochrome
+│   ├── icon-mono-white.png      # White monochrome
+│   ├── lockup-dark.png          # Logo + name, dark background
+│   ├── lockup-light.png         # Logo + name, light background
+│   ├── app-icon-ios.png         # iOS app icon
+│   ├── app-icon-chrome.png      # Chrome/PWA icon
+│   ├── favicon.ico              # Multi-resolution (16/32/48)
+│   └── icon.svg                 # Vector SVG
+├── 3d/
+│   ├── 3d-premium.png           # Titanium/obsidian render
+│   ├── 3d-architectural.png     # Concrete/basalt render
+│   └── 3d-luminous.png          # Frosted glass render
+├── social/
+│   ├── og-image-1200x630.png    # Open Graph / Twitter Card
+│   └── avatar-square-512.png    # Social media avatar
+└── README.md                    # Quick usage guide
+```
 
-### Nouveautés v2.0.0
+## License
 
-- **`social-carousels`** : carrousels LinkedIn/Instagram 10 slides avec hooks viraux
-- **`brand-pipeline`** : orchestration 5 phases (exploration → acquisition)
-- **4 agents** : `art-director` (opus), `visual-designer`, `carousel-copywriter`, `design-system-engineer`
-- **Knowledge base** : dossier `carousel-references/` pour exemples et méthodologies
-- **Self-check** : chaque skill valide sa sortie avant livraison
-- **XML tags** : `<constraints>`, `<avoid>`, `<example>`, `<validation_checkpoint>` dans les prompts
+MIT — see [LICENSE](LICENSE)
 
-### Pour les contributeurs
-
-- Les skills utilisent désormais `gemini-api-reference.md` — ne plus dupliquer les templates API
-- Les agents doivent déclarer `tools:` dans leur frontmatter
-- Les supporting files sont obligatoires si un SKILL.md dépasse 500 lignes
-- Voir [CONTRIBUTING.md](CONTRIBUTING.md) pour les guidelines complètes v2.0.0
-
-## Licence
-
-MIT — voir [LICENSE](LICENSE)
-
-## Auteur
+## Author
 
 **BULDEE** — AI Agency & SaaS Studio

@@ -1,38 +1,38 @@
-# ADR-002: Knowledge base via MCP Filesystem
+# ADR-002: Knowledge Base via MCP Filesystem
 
-**Date** : 2026-03-14
-**Statut** : accepted
+**Date**: 2026-03-14
+**Status**: accepted
 
-## Contexte
+## Context
 
-Les skills de design ont besoin d'accéder à des fichiers de référence (PDFs de chartes graphiques, images de logos existants, moodboards). Plusieurs approches sont possibles : embedding dans le prompt, upload manuel à chaque session, base vectorielle (RAG), ou accès filesystem via MCP.
+Design skills need access to reference files (brand guideline PDFs, existing logo images, moodboards). Several approaches are possible: embedding in the prompt, manual upload each session, vector database (RAG), or filesystem access via MCP.
 
-## Décision
+## Decision
 
-Utiliser le MCP `@modelcontextprotocol/server-filesystem` pointé sur le dossier `knowledge/` du plugin via le `.mcp.json`.
+Use the `@modelcontextprotocol/server-filesystem` MCP pointed at the plugin's `knowledge/` folder via `.mcp.json`.
 
-## Justification
+## Rationale
 
-**Pourquoi MCP Filesystem :**
-- **Zéro infrastructure** : pas de serveur vectoriel, pas de base de données, pas d'API tierce
-- **Accès natif** : Claude Code lit les fichiers comme s'ils étaient dans le contexte
-- **Mise à jour triviale** : l'utilisateur dépose un fichier dans le dossier, c'est immédiatement disponible
-- **Multi-format** : PDF, PNG, SVG, JSON — le MCP filesystem gère tout
+**Why MCP Filesystem:**
+- **Zero infrastructure**: no vector server, no database, no third-party API
+- **Native access**: Claude Code reads files as if they were in the context
+- **Trivial updates**: the user drops a file into the folder, and it's immediately available
+- **Multi-format**: PDF, PNG, SVG, JSON — the MCP filesystem handles everything
 
-**Pourquoi pas RAG / base vectorielle :**
-- YAGNI — le volume de références est faible (dizaine de fichiers max)
-- La recherche sémantique n'apporte rien ici : Claude lit chaque référence séquentiellement
-- Ajoute une dépendance infrastructure lourde (embedding model, vector store)
-- Complexifie l'installation pour un non-technique
+**Why not RAG / vector database:**
+- YAGNI — the volume of references is low (a dozen files at most)
+- Semantic search adds no value here: Claude reads each reference sequentially
+- Adds a heavy infrastructure dependency (embedding model, vector store)
+- Complicates installation for non-technical users
 
-**Pourquoi pas embedding dans le prompt :**
-- Les PDFs et images ne peuvent pas être embarqués en texte dans un SKILL.md
-- La taille du context window serait gaspillée en permanence
-- Pas de mise à jour possible sans modifier le skill
+**Why not embedding in the prompt:**
+- PDFs and images cannot be embedded as text in a SKILL.md
+- Context window size would be permanently wasted
+- No updates possible without modifying the skill
 
-## Conséquences
+## Consequences
 
-- Le dossier `knowledge/` est la source de vérité pour les références
-- Les fichiers de référence sont ignorés par git (`.gitignore`) — chaque utilisateur a ses propres références
-- Les `.gitkeep` maintiennent la structure de dossiers vide dans le repo
-- Si le volume de références dépasse ~50 fichiers, reconsidérer un index ou un RAG léger (→ ADR future)
+- The `knowledge/` folder is the source of truth for references
+- Reference files are ignored by git (`.gitignore`) — each user has their own references
+- `.gitkeep` files maintain the empty folder structure in the repo
+- If the volume of references exceeds ~50 files, reconsider an index or lightweight RAG (future ADR)

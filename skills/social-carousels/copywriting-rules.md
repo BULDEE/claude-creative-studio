@@ -1,142 +1,142 @@
-# Copywriting Rules — Carrousels Social Media
+# Copywriting Rules — Social Media Carousels
 
-Ce document est la référence des règles de copywriting pour la création de carrousels. Consulté automatiquement par le skill `social-carousels`.
+This document is the copywriting reference for carousel creation. Automatically consulted by the `social-carousels` skill.
 
-## Structure obligatoire — 10 slides
+## Mandatory Structure — 10 Slides
 
 ### Slide 1 — TITLE
-- 5 à 10 mots maximum
-- Lisible en 1 seconde
-- Résultat clair ou promesse chiffrée
+- 5 to 10 words maximum
+- Readable in 1 second
+- Clear result or quantified promise
 
-**Exemples :**
-- "7 outils pour doubler ton reach"
-- "Comment Heinz a augmenté ses ventes de +18%"
+**Examples:**
+- "7 tools to double your reach"
+- "How Heinz increased sales by +18%"
 
 ### Slide 2 — HOOK
-- Promesse ou choc
-- Max 10 mots
-- Tension immédiate
+- Promise or shock
+- Max 10 words
+- Immediate tension
 
-**Exemples :**
-- "Cette stratégie a changé leur business."
-- "Tout le monde fait cette erreur."
+**Examples:**
+- "This strategy changed their entire business."
+- "Everyone makes this mistake."
 
-### Slide 3 — PAIN / PROBLÈME
-- 1 à 2 phrases courtes
-- Frustration réelle de l'audience
+### Slide 3 — PAIN / PROBLEM
+- 1 to 2 short sentences
+- Real audience frustration
 
-**Exemples :**
-- "Tu postes. Personne ne réagit. Tu doutes de ton message."
+**Examples:**
+- "You post. Nobody reacts. You start doubting your message."
 
 ### Slide 4 — SHIFT / INSIGHT
-- Nouvelle perspective
-- Psychologie, principe ou révélation simple
+- New perspective
+- Psychology, principle, or simple revelation
 
-**Exemples :**
-- "Le problème n'est pas ton contenu. C'est ton angle."
+**Examples:**
+- "The problem isn't your content. It's your angle."
 
-### Slides 5 à 8 — VALEUR (max 35 mots/slide)
-- Frameworks, listes, exemples, méthodes, outils, scripts
-- Phrases courtes
-- Pas de paragraphe
-- Une idée = une ligne
+### Slides 5 to 8 — VALUE (max 35 words/slide)
+- Frameworks, lists, examples, methods, tools, scripts
+- Short sentences
+- No paragraphs
+- One idea = one line
 
 ### Slide 9 — APPLICATION
-- Comment appliquer concrètement
-- Dans un business, une situation réelle, avec un exemple simple
+- How to apply concretely
+- In a business, a real situation, with a simple example
 
-**Exemples :**
-- "Utilise cette structure pour ton prochain post LinkedIn demain."
+**Examples:**
+- "Use this structure for your next LinkedIn post tomorrow."
 
 ### Slide 10 — CTA
-- Action claire
-- Pas d'urgence artificielle
+- Clear action
+- No artificial urgency
 
-**Exemples :**
-- "DM moi pour le doc"
-- "Comment 🔥 pour le Notion"
-- "Lien en bio"
+**Examples:**
+- "DM me for the doc"
+- "Comment with a fire emoji for the Notion template"
+- "Link in bio"
 
-## Style guide
+## Style Guide
 
-### Faire
-- Phrases courtes (6-14 mots max)
-- Ton humain, direct
-- Rythme visuel (sauts de ligne)
-- Curiosité + utilité
-- Chiffres quand possible
-- Clarté > intelligence
-- Simplicité > complexité
+### Do
+- Short sentences (6-14 words max)
+- Human, direct tone
+- Visual rhythm (line breaks)
+- Curiosity + utility
+- Numbers when possible
+- Clarity > cleverness
+- Simplicity > complexity
 
-### Interdit
-- Phrases vagues
-- Langage corporate
-- "Il est important de..."
-- "Voici pourquoi..."
-- Émojis excessifs
-- Jargon technique
-- Ton guru ou professoral
-- "Je vais t'expliquer..."
-- "Tu dois absolument..."
-- Motivation vide
-- Storytelling inutilement long
+### Don't
+- Vague sentences
+- Corporate language
+- "It's important to..."
+- "Here's why..."
+- Excessive emojis
+- Technical jargon
+- Guru or professorial tone
+- "I'm going to explain..."
+- "You absolutely must..."
+- Empty motivation
+- Unnecessarily long storytelling
 
-## Format de post (structure AIDA/PAS alternative)
+## Post Format (AIDA/PAS alternative structure)
 
-Pour les posts d'accompagnement du carrousel :
+For the posts accompanying the carousel:
 
-1. **Hook** (fourni ou créé via hook-strategies.md) — pattern interrupt
-2. **Story / Cas** — fait réel, personnages, lieu, moment
-3. **Connexion à l'expertise** — relier l'histoire au thème
-4. **Takeaway / Insight** — une seule idée forte, transférable
-5. **CTA doux** — jamais agressif
+1. **Hook** (provided or created via hook-strategies.md) — pattern interrupt
+2. **Story / Case** — real fact, characters, place, moment
+3. **Connection to expertise** — link the story to the theme
+4. **Takeaway / Insight** — one strong idea, transferable
+5. **Soft CTA** — never aggressive
 
-## Ton
+## Tone
 
-Style narrateur Netflix :
-- Calme
-- Curieux
-- Précis
-- Humain
-- Minimaliste
-- Pas vendeur
-- Pas arrogant
+Netflix narrator style:
+- Calm
+- Curious
+- Precise
+- Human
+- Minimalist
+- Not salesy
+- Not arrogant
 
-## Critères de validation
+## Validation Criteria
 
-Un bon carrousel doit :
-- Être compris par un enfant de 10 ans
-- Intéresser un adulte de 40 ans
-- Créer une émotion
-- Enseigner une idée
-- Provoquer une réaction
-- Rester simple
-- Pouvoir être sauvegardé
-- Ne jamais vendre directement
+A good carousel must:
+- Be understood by a 10-year-old
+- Interest a 40-year-old adult
+- Create an emotion
+- Teach an idea
+- Provoke a reaction
+- Stay simple
+- Be worth saving
+- Never sell directly
 
-## Few-shot — BIEN vs PAS BIEN
+## Few-shot — GOOD vs BAD
 
 ### Hook
-- ❌ "Je vais te parler de productivité."
-- ✅ "Je suis coach en productivité et je ne fais plus de to-do lists."
+- Bad: "I'm going to talk about productivity."
+- Good: "I'm a productivity coach and I stopped making to-do lists."
 
 ### Story
-- ❌ "Hier j'ai appris quelque chose d'important."
-- ✅ "Hier, j'ai presque supprimé 6 mois de travail."
+- Bad: "Yesterday I learned something important."
+- Good: "Yesterday, I almost deleted 6 months of work."
 
 ### Data
-- ❌ "J'ai gagné beaucoup d'argent grâce à ça."
-- ✅ "Une seule phrase m'a rapporté 12 400 € en deux jours."
+- Bad: "I made a lot of money from this."
+- Good: "One single sentence earned me $12,400 in two days."
 
 ### Insight
-- ❌ "Il faut être vigilant."
-- ✅ "Le cerveau fuit ce qu'il ne comprend pas."
+- Bad: "You need to be careful."
+- Good: "The brain runs from what it doesn't understand."
 
 ### CTA
-- ❌ "Like et abonne-toi maintenant."
-- ✅ "Tu aurais fait quoi à leur place ?"
+- Bad: "Like and subscribe now."
+- Good: "What would you have done in their place?"
 
 ### Payoff
-- ❌ "C'est une bonne leçon."
-- ✅ "Les décisions ne sont jamais rationnelles. Elles sont émotionnelles."
+- Bad: "That's a good lesson."
+- Good: "Decisions are never rational. They're emotional."

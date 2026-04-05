@@ -1,73 +1,73 @@
-# ADR-009: Agents spécialisés plutôt que Agent Teams
+# ADR-009: Specialized Agents over Agent Teams
 
 **Date**: 2026-03-14
 **Status**: accepted
 
 ## Context
 
-Le pipeline brand-to-code implique plusieurs rôles créatifs distincts (directeur artistique, designer visuel, copywriter, ingénieur design system). Deux approches sont possibles :
+The brand-to-code pipeline involves several distinct creative roles (art director, visual designer, copywriter, design system engineer). Two approaches are possible:
 
-1. **Agents** dans `agents/` — subagents classiques, stables, production-ready
-2. **Agent Teams** — feature expérimentale Claude Code, multi-sessions coordonnées
+1. **Agents** in `agents/` — classic subagents, stable, production-ready
+2. **Agent Teams** — experimental Claude Code feature, coordinated multi-session
 
 ## Decision
 
-Implémenter des **agents spécialisés** dans `agents/` du plugin, architecturés pour une migration future vers Agent Teams quand la feature sera stable.
+Implement **specialized agents** in the plugin's `agents/` directory, architected for future migration to Agent Teams when the feature becomes stable.
 
 ## Rationale
 
-### Pourquoi pas Agent Teams maintenant
+### Why not Agent Teams now
 
-La documentation officielle Anthropic est explicite :
+The official Anthropic documentation is explicit:
 
 > "Agent teams are experimental and disabled by default."
 
-Limitations documentées :
-- Pas de session resumption avec teammates in-process
-- Task status qui peut lag (teammates oublient de marquer les tâches)
-- Shutdown lent
-- Un seul team par session
-- Pas de teams imbriquées
+Documented limitations:
+- No session resumption with teammates in-process
+- Task status can lag (teammates forget to mark tasks)
+- Slow shutdown
+- Only one team per session
+- No nested teams
 
-Pour un plugin distribué à des utilisateurs, ces limitations sont inacceptables.
+For a plugin distributed to users, these limitations are unacceptable.
 
-### Pourquoi des agents dans le plugin
+### Why agents in the plugin
 
-Les agents dans `agents/` sont :
-- **Stables** — feature GA (Generally Available) de Claude Code
-- **Distribuables** — copiés dans le cache plugin à l'installation
-- **Testables** — invocables individuellement via `/agents`
-- **Personnalisables** — chaque agent a ses tools, son model, ses skills préchargés
+Agents in `agents/` are:
+- **Stable** — GA (Generally Available) Claude Code feature
+- **Distributable** — copied into the plugin cache at installation
+- **Testable** — individually invocable via `/agents`
+- **Customizable** — each agent has its own tools, model, and preloaded skills
 
-### Architecture prête pour les teams
+### Architecture ready for teams
 
-Les 4 agents sont conçus pour devenir des teammates :
+The 4 agents are designed to become teammates:
 
 ```
-Aujourd'hui (subagents)              Demain (agent teams)
-───────────────────────              ────────────────────
-art-director (opus)        →        Team lead
-visual-designer (sonnet)   →        Teammate: visuels
-carousel-copywriter (sonnet) →      Teammate: copy
-design-system-engineer (sonnet) →   Teammate: code
+Today (subagents)                Tomorrow (agent teams)
+─────────────────                ────────────────────
+art-director (opus)        →    Team lead
+visual-designer (sonnet)   →    Teammate: visuals
+carousel-copywriter (sonnet) →  Teammate: copy
+design-system-engineer (sonnet) → Teammate: code
 ```
 
-Les agents ont :
-- Des rôles clairement séparés (pas de chevauchement)
-- Des skills préchargés qui définissent leur expertise
-- Des descriptions suffisamment détaillées pour la delegation automatique
-- L'agent `art-director` a `memory: user` pour apprendre les préférences
+The agents have:
+- Clearly separated roles (no overlap)
+- Preloaded skills that define their expertise
+- Sufficiently detailed descriptions for automatic delegation
+- The `art-director` agent has `memory: user` to learn preferences
 
 ### Applied principles
 
-- **OCP** : quand Agent Teams sera stable, on ajoute un `settings.json` avec `"agent": "art-director"` sans modifier les agents
-- **ISP** : chaque agent est utilisable indépendamment
-- **SRP** : chaque agent a un seul rôle créatif
+- **OCP**: when Agent Teams becomes stable, a `settings.json` with `"agent": "art-director"` is added without modifying the agents
+- **ISP**: each agent is usable independently
+- **SRP**: each agent has a single creative role
 
 ## Consequences
 
-- 4 fichiers dans `agents/` distribués avec le plugin
-- Les agents fonctionnent immédiatement comme subagents
-- La migration vers Agent Teams sera un changement de configuration, pas de code
-- L'agent `art-director` utilise opus (plus cher mais justifié pour les décisions créatives)
-- Les 3 autres utilisent sonnet (bon rapport qualité/coût pour l'exécution)
+- 4 files in `agents/` distributed with the plugin
+- Agents work immediately as subagents
+- Migration to Agent Teams will be a configuration change, not a code change
+- The `art-director` agent uses opus (more expensive but justified for creative decisions)
+- The other 3 use sonnet (good quality/cost ratio for execution)

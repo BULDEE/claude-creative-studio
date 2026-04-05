@@ -2,18 +2,18 @@
 
 ## Quick Start
 
-1. Fork le repo
-2. Clone : `git clone git@github.com:YOUR_USER/claude-creative-studio.git`
-3. Testez en local : `claude --plugin-dir ./claude-creative-studio`
-4. Créez une branche : `git checkout -b feat/mon-ajout`
-5. Commitez : `git commit -m "feat: description"`
+1. Fork the repo
+2. Clone: `git clone git@github.com:YOUR_USER/claude-creative-studio.git`
+3. Test locally: `claude --plugin-dir ./claude-creative-studio`
+4. Create a branch: `git checkout -b feat/my-addition`
+5. Commit: `git commit -m "feat: description"`
 6. Push + PR
 
 ## Conventions
 
 ### Commits
 
-Format **Conventional Commits** en anglais :
+**Conventional Commits** format in English:
 
 ```
 feat: add social media template skill
@@ -22,113 +22,113 @@ docs: add ADR for Figma token support
 refactor: extract prompt template in design-logo
 ```
 
-Types : `feat`, `fix`, `docs`, `refactor`, `chore`, `test`
+Types: `feat`, `fix`, `docs`, `refactor`, `chore`, `test`
 
 ### Branches
 
 ```
-feat/nom-feature
-fix/description-bug
-docs/sujet
+feat/feature-name
+fix/bug-description
+docs/topic
 ```
 
 ### SKILL.md
 
-Chaque skill doit respecter :
+Each skill must follow these conventions:
 
-1. **Frontmatter** : `name`, `description` (déclencheurs inclus), `argument-hint`
-2. **Structure** : Prérequis → Workflow (phases numérotées) → Livrable → Anti-patterns → Self-check
-3. **Langue** : français pour le contenu, anglais pour le code
-4. **Ton** : instructions claires et directes (pas de langage agressif, Claude 4.6 n'en a pas besoin)
-5. **XML tags** : utiliser `<constraints>`, `<avoid>`, `<example>`, `<validation_checkpoint>` pour structurer
-6. **Anti-patterns** : liste explicite dans un bloc `<avoid>`
-7. **Self-check** : section de validation avant livraison
-8. **Limite** : max 500 lignes — extraire le détail dans des supporting files (ex: `copywriting-rules.md`)
+1. **Frontmatter**: `name`, `description` (including triggers), `argument-hint`
+2. **Structure**: Prerequisites -> Workflow (numbered phases) -> Deliverable -> Anti-patterns -> Self-check
+3. **Language**: French for content, English for code
+4. **Tone**: clear and direct instructions (no aggressive language, Claude 4.6 does not need it)
+5. **XML tags**: use `<constraints>`, `<avoid>`, `<example>`, `<validation_checkpoint>` for structure
+6. **Anti-patterns**: explicit list in an `<avoid>` block
+7. **Self-check**: validation section before delivery
+8. **Limit**: max 500 lines — extract details into supporting files (e.g., `copywriting-rules.md`)
 
-### Supporting files
+### Supporting Files
 
-Pour les skills complexes, extraire le contenu de référence dans des fichiers séparés :
+For complex skills, extract reference content into separate files:
 
 ```
-skills/mon-skill/
-├── SKILL.md              ← Orchestrateur (< 500 lignes)
-├── reference-rules.md    ← Règles détaillées (loaded on demand)
-└── examples.md           ← Exemples complets (loaded on demand)
+skills/my-skill/
+├── SKILL.md              <- Orchestrator (< 500 lines)
+├── reference-rules.md    <- Detailed rules (loaded on demand)
+└── examples.md           <- Complete examples (loaded on demand)
 ```
 
-Référencer depuis SKILL.md : `[reference-rules.md](reference-rules.md)`
+Reference from SKILL.md: `[reference-rules.md](reference-rules.md)`
 
 ### Agents
 
-Chaque agent dans `agents/` doit avoir :
+Each agent in `agents/` must have:
 
-1. **Frontmatter** : `name`, `description`, `model`, `skills`, `tools`
-2. **Optionnel** : `memory: user` si l'agent doit retenir des préférences
-3. **Rôle clair** : un agent = une responsabilité (SRP)
-4. **Self-check** : section de validation avant livraison
-5. **Format de sortie** : documenter comment l'agent présente ses résultats
+1. **Frontmatter**: `name`, `description`, `model`, `skills`, `tools`
+2. **Optional**: `memory: user` if the agent needs to retain preferences
+3. **Clear role**: one agent = one responsibility (SRP)
+4. **Self-check**: validation section before delivery
+5. **Output format**: document how the agent presents its results
 
-### API Gemini
+### Gemini API
 
-Les templates d'appel API Gemini sont centralisés dans `skills/gemini-api-reference.md`. Si l'API change, modifier ce fichier unique — les skills le référencent.
+Image API call templates are centralized in `skills/image-provider-reference.md`. This file covers Gemini (Nano Banana) and OpenAI (gpt-image-1). If an API changes, modify this single file — skills reference it.
 
 ### ADR
 
-Pour toute décision architecturale significative :
+For any significant architectural decision:
 
-1. Créer `docs/adr/NNN-titre-kebab.md`
-2. Suivre le template : Contexte → Décision → Justification → Conséquences
-3. Mettre à jour `docs/adr/README.md`
+1. Create `docs/adr/NNN-title-kebab.md`
+2. Follow the template: Context -> Decision -> Rationale -> Consequences
+3. Update `docs/adr/README.md`
 
-## Ajouter un nouveau Skill
+## Adding a New Skill
 
-1. Créer `skills/mon-skill/SKILL.md` (suivre les conventions ci-dessus)
-2. Ajouter des supporting files si le contenu dépasse 500 lignes
-3. Documenter l'intégration avec les skills existants
-4. Référencer `gemini-api-reference.md` si le skill génère des images
-5. Mettre à jour le README.md principal (table des composants)
-6. Créer un ADR si le skill introduit un nouveau Bounded Context
+1. Create `skills/my-skill/SKILL.md` (follow conventions above)
+2. Add supporting files if content exceeds 500 lines
+3. Document integration with existing skills
+4. Reference `image-provider-reference.md` if the skill generates images
+5. Update the main README.md (components table)
+6. Create an ADR if the skill introduces a new Bounded Context
 
-## Ajouter un nouvel Agent
+## Adding a New Agent
 
-1. Créer `agents/mon-agent.md` avec le frontmatter complet
-2. Associer les skills nécessaires dans le champ `skills`
-3. Déclarer les tools nécessaires dans le champ `tools`
-4. Mettre à jour `docs/ARCHITECTURE.md` (table agents + agent-to-phase mapping)
-5. Mettre à jour le README.md principal
+1. Create `agents/my-agent.md` with full frontmatter
+2. Associate required skills in the `skills` field
+3. Declare required tools in the `tools` field
+4. Update `docs/ARCHITECTURE.md` (agents table + agent-to-phase mapping)
+5. Update the main README.md
 
-## Ajouter à la Knowledge Base
+## Adding to the Knowledge Base
 
-1. Déposer les fichiers dans le bon sous-dossier de `knowledge/`
-   - `logo-references/` : chartes graphiques, logos existants
-   - `brand-assets/` : logos finaux, palettes, guidelines
-   - `carousel-references/` : exemples carrousels, méthodologies copywriting
-2. Mettre à jour `knowledge/README.md` si nécessaire
-3. Formats supportés : PDF, PNG, JPG, SVG, JSON, YAML, MD, DOCX
+1. Place files in the appropriate subfolder of `knowledge/`
+   - `logo-references/`: brand guidelines, existing logos
+   - `brand-assets/`: final logos, palettes, guidelines
+   - `carousel-references/`: carousel examples, copywriting methodologies
+2. Update `knowledge/README.md` if needed
+3. Supported formats: PDF, PNG, JPG, SVG, JSON, YAML, MD, DOCX
 
-## Ajouter une source de DA dans la cascade
+## Adding a DA Source to the Cascade
 
-1. Modifier `skills/brand-visuals/SKILL.md`
-2. Insérer la nouvelle source à la bonne position dans l'ordre de priorité
-3. Documenter dans l'ADR-005 (ou créer un ADR si changement de stratégie)
+1. Edit `skills/brand-visuals/SKILL.md`
+2. Insert the new source at the correct position in the priority order
+3. Document in ADR-005 (or create an ADR if the strategy changes)
 
-## Tests
+## Testing
 
-Tester un skill :
+Testing a skill:
 
 ```bash
-# Lancer Claude Code avec le plugin en local
+# Run Claude Code with the plugin locally
 claude --plugin-dir /path/to/claude-creative-studio
 
-# Vérifier que le plugin est chargé
+# Verify the plugin is loaded
 /plugin list
 
-# Vérifier les MCP
+# Check MCPs
 /mcp
 
-# Tester un skill
-"Crée un logo pour TestCorp dans le secteur tech"
+# Test a skill
+"Create a logo for TestCorp in the tech sector"
 
-# Tester un agent
-"@art-director propose 3 directions pour TestCorp"
+# Test an agent
+"@art-director propose 3 directions for TestCorp"
 ```

@@ -34,9 +34,9 @@ if [[ "$FILE_PATH" == *.tsx || "$FILE_PATH" == *.ts ]]; then
     HARDCODED=$(grep -nE '#[0-9A-Fa-f]{6}' "$FILE_PATH" 2>/dev/null | grep -v '\/\/' | grep -v 'tokens' | grep -v 'brand' | head -3 || true)
     if [ -n "$HARDCODED" ]; then
       WARNINGS="${WARNINGS}
-[BRAND CHECK] Couleurs hex hardcodees detectees dans $FILE_PATH.
-  Utiliser les design tokens (brand-tokens.css / tailwind.config.ts) au lieu de valeurs en dur.
-  Lignes: $(echo "$HARDCODED" | head -3)"
+[BRAND CHECK] Hardcoded hex colors detected in $FILE_PATH.
+  Use design tokens (brand-tokens.css / tailwind.config.ts) instead of hardcoded values.
+  Lines: $(echo "$HARDCODED" | head -3)"
     fi
   fi
 fi
@@ -47,8 +47,8 @@ if [[ "$FILE_PATH" == *.tsx ]]; then
     INLINE_COLORS=$(grep -nE 'style=\{.*color' "$FILE_PATH" 2>/dev/null | head -3 || true)
     if [ -n "$INLINE_COLORS" ]; then
       WARNINGS="${WARNINGS}
-[BRAND CHECK] Styles inline avec couleurs dans $FILE_PATH.
-  Preferer les classes Tailwind derivees des tokens brand.json."
+[BRAND CHECK] Inline styles with colors in $FILE_PATH.
+  Prefer Tailwind classes derived from brand.json tokens."
     fi
   fi
 fi
@@ -59,7 +59,7 @@ if [[ "$FILE_PATH" == *.css ]]; then
     BAD_VARS=$(grep -nE '--[a-z]+-' "$FILE_PATH" 2>/dev/null | grep -v '\-\-color-\|\-\-font-\|\-\-radius-\|\-\-shadow-\|\-\-spacing-' | head -3 || true)
     if [ -n "$BAD_VARS" ]; then
       WARNINGS="${WARNINGS}
-[BRAND CHECK] CSS custom properties hors convention dans $FILE_PATH.
+[BRAND CHECK] CSS custom properties outside naming convention in $FILE_PATH.
   Convention: --color-*, --font-*, --radius-*, --shadow-*, --spacing-*"
     fi
   fi

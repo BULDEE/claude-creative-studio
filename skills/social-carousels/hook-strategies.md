@@ -1,108 +1,108 @@
-# Hook Strategies — Matrice de Création
+# Hook Strategies — Creation Matrix
 
-Ce document est la référence des stratégies de hooks viraux pour carrousels. Consulté automatiquement par le skill `social-carousels`.
+This document is the reference for viral hook strategies for carousels. Automatically consulted by the `social-carousels` skill.
 
-## Objectif du hook
+## Hook Objective
 
-Le hook doit arrêter le scroll en **moins de 2 secondes** et créer une tension mentale immédiate : curiosité, émotion, contradiction, identification.
+The hook must stop the scroll in **under 2 seconds** and create immediate mental tension: curiosity, emotion, contradiction, identification.
 
-## Contraintes structurelles
+## Structural Constraints
 
-- Maximum 2 lignes visibles sur desktop
-- 140 à 220 caractères recommandés
-- Aucune ligne vide entre les deux phrases
-- Rythme naturel à l'oral
+- Maximum 2 visible lines on desktop
+- 140 to 220 characters recommended
+- No empty line between the two sentences
+- Natural spoken rhythm
 
-**Ligne 1** = choc / tension / paradoxe
-**Ligne 2** = approfondissement / escalade / teasing
+**Line 1** = shock / tension / paradox
+**Line 2** = deepening / escalation / teasing
 
-## 6 stratégies de hook
+## 6 Hook Strategies
 
-### 1. CONTRADICTION / CONFLIT IDENTITAIRE
+### 1. CONTRADICTION / IDENTITY CONFLICT
 
-Créer un paradoxe entre ce que la personne est et ce qu'elle fait.
+Create a paradox between what the person is and what they do.
 
-- ❌ "Je vais te parler de productivité."
-- ✅ "Je suis coach en productivité… et je n'ai rien planifié depuis 3 semaines."
+- Bad: "I'm going to talk about productivity."
+- Good: "I'm a productivity coach... and I haven't planned anything for 3 weeks."
 
-### 2. STORY SEED (TENSION EN COURS)
+### 2. STORY SEED (ONGOING TENSION)
 
-Ouvrir une histoire in medias res, la tension est déjà là.
+Open a story in medias res — the tension is already there.
 
-- ❌ "Hier j'ai appris quelque chose d'important."
-- ✅ "Hier, j'ai failli annuler un lancement préparé depuis 4 mois."
+- Bad: "Yesterday I learned something important."
+- Good: "Yesterday, I almost canceled a launch I'd been preparing for 4 months."
 
-### 3. OPINION POLARISANTE
+### 3. POLARIZING OPINION
 
-Prendre position. Pas agressif, mais clair.
+Take a stand. Not aggressive, but clear.
 
-- ❌ "Le contenu est important."
-- ✅ "Poster tous les jours est une erreur si tu n'as aucun client."
+- Bad: "Content is important."
+- Good: "Posting every day is a mistake if you have zero clients."
 
-### 4. CURIOSITÉ + DATA
+### 4. CURIOSITY + DATA
 
-Chiffre précis + résultat inattendu.
+Precise number + unexpected result.
 
-- ❌ "J'ai gagné beaucoup d'argent grâce à ça."
-- ✅ "Cette phrase de 9 mots m'a rapporté 15 600 € en 48 heures."
+- Bad: "I made a lot of money from this."
+- Good: "This 9-word sentence earned me $15,600 in 48 hours."
 
-### 5. BACKSTAGE / VULNÉRABILITÉ
+### 5. BACKSTAGE / VULNERABILITY
 
-Montrer l'envers du décor. Authenticité maîtrisée.
+Show what happens behind the scenes. Controlled authenticity.
 
-- ❌ "Je vais parler de burnout."
-- ✅ "La semaine dernière, j'ai craqué devant un client."
+- Bad: "I'm going to talk about burnout."
+- Good: "Last week, I broke down in front of a client."
 
-### 6. ÉCHO ÉMOTIONNEL
+### 6. EMOTIONAL ECHO
 
-Refléter un conflit interne du lecteur. Il se reconnaît.
+Reflect an internal conflict the reader has. They recognize themselves.
 
-- ❌ "Tu dois croire en toi."
-- ✅ "Tu fixes ton écran et tu te demandes parfois à quoi ça sert."
+- Bad: "You need to believe in yourself."
+- Good: "You stare at your screen and sometimes wonder what the point is."
 
-## Leviers psychologiques
+## Psychological Levers
 
-- **Curiosity gap** — information manquante
-- **Contradiction cognitive** — "ça ne devrait pas être comme ça"
-- **Projection identitaire** — "c'est exactement moi"
-- **Vulnérabilité maîtrisée** — authenticité, pas victimisation
-- **Chiffres précis** — crédibilité immédiate
-- **Conflit interne** — la tension que le lecteur ressent déjà
-- **Surprise** — angle inattendu
-- **Polarisation douce** — opinion claire sans agressivité
-- **Résonance émotionnelle** — toucher un vécu universel
+- **Curiosity gap** — missing information
+- **Cognitive contradiction** — "it shouldn't be like this"
+- **Identity projection** — "that's exactly me"
+- **Controlled vulnerability** — authenticity, not victimization
+- **Precise numbers** — instant credibility
+- **Internal conflict** — the tension the reader already feels
+- **Surprise** — unexpected angle
+- **Soft polarization** — clear opinion without aggression
+- **Emotional resonance** — touching a universal experience
 
-## Anti-patterns interdits
+## Forbidden Anti-patterns
 
-- "Je vais t'expliquer…"
-- "Voici comment…"
-- "3 conseils pour…"
-- "Tu dois absolument…"
-- "C'est important de…"
-- Hooks génériques
-- Phrases marketing
-- Ton guru
-- Ton professoral
-- Promesses vagues
+- "I'm going to explain..."
+- "Here's how..."
+- "3 tips for..."
+- "You absolutely must..."
+- "It's important to..."
+- Generic hooks
+- Marketing phrases
+- Guru tone
+- Professorial tone
+- Vague promises
 
-## Critères de validation
+## Validation Criteria
 
-Un bon hook doit :
-- Être compris par un enfant de 10 ans
-- Intriguer un adulte de 40 ans
-- Provoquer une émotion
-- Ne pas expliquer
-- Donner envie de lire la suite
-- Paraître humain
+A good hook must:
+- Be understood by a 10-year-old
+- Intrigue a 40-year-old adult
+- Provoke an emotion
+- Not explain
+- Make the reader want to continue
+- Feel human
 
-## Philosophie
+## Philosophy
 
-Un hook n'informe pas.
-Il ouvre une porte mentale.
+A hook doesn't inform.
+It opens a mental door.
 
-Chaque phrase doit :
-- soit créer une tension
-- soit nourrir la curiosité
-- soit refléter une vérité interne du lecteur
+Each sentence must:
+- either create tension
+- or fuel curiosity
+- or reflect an internal truth of the reader
 
-Tout le reste est supprimé.
+Everything else is removed.

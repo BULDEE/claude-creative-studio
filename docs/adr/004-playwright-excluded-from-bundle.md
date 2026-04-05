@@ -1,35 +1,35 @@
-# ADR-004: Playwright MCP exclu du bundle plugin
+# ADR-004: Playwright MCP Excluded from Plugin Bundle
 
-**Date** : 2026-03-14
-**Statut** : accepted
+**Date**: 2026-03-14
+**Status**: accepted
 
-## Contexte
+## Context
 
-Le skill `app-guide-generator` dépend du MCP Playwright pour naviguer dans les applications web et capturer des screenshots. La question est de savoir si ce MCP doit être inclus dans le `.mcp.json` du plugin ou installé séparément par l'utilisateur.
+The `app-guide-generator` skill depends on the Playwright MCP to navigate web applications and capture screenshots. The question is whether this MCP should be included in the plugin's `.mcp.json` or installed separately by the user.
 
-## Décision
+## Decision
 
-Le MCP Playwright est **exclu** du bundle plugin. Il est installé séparément en scope user.
+The Playwright MCP is **excluded** from the plugin bundle. It is installed separately at user scope.
 
-## Justification
+## Rationale
 
-**Pourquoi exclure :**
+**Why exclude:**
 
-1. **Principe de responsabilité unique (SRP)** : le plugin est un toolkit créatif, pas un outil de browser automation. Playwright sert à bien d'autres usages (tests, QA, scraping, exploration).
+1. **Single Responsibility Principle (SRP)**: the plugin is a creative toolkit, not a browser automation tool. Playwright serves many other purposes (tests, QA, scraping, exploration).
 
-2. **Éviter la duplication** : si l'utilisateur a déjà Playwright MCP installé (très courant chez les devs), l'inclure dans le plugin créerait un doublon qui consomme du context window inutilement.
+2. **Avoid duplication**: if the user already has Playwright MCP installed (very common among developers), including it in the plugin would create a duplicate that unnecessarily consumes context window.
 
-3. **Scope différent** : le MCP `creative-knowledge` est spécifique au plugin (scope plugin). Playwright est un outil transversal (scope user). Mélanger les scopes viole la séparation des responsabilités.
+3. **Different scope**: the `creative-knowledge` MCP is plugin-specific (plugin scope). Playwright is a cross-cutting tool (user scope). Mixing scopes violates separation of responsibilities.
 
-4. **Optionnel** : seul 1 skill sur 3 utilise Playwright. Forcer son installation pour les 2/3 des utilisateurs qui ne feront pas de guides est du waste.
+4. **Optional**: only 1 out of 3 skills uses Playwright. Forcing its installation for the 2/3 of users who won't create guides is waste.
 
-**Comment ça fonctionne :**
-- Le skill `app-guide-generator` documente le prérequis dans son SKILL.md
-- Si Playwright n'est pas installé et que l'utilisateur demande un guide, Claude Code l'informe et donne la commande d'installation
-- Le README du plugin liste Playwright comme prérequis optionnel
+**How it works:**
+- The `app-guide-generator` skill documents the prerequisite in its SKILL.md
+- If Playwright is not installed and the user requests a guide, Claude Code informs them and provides the installation command
+- The plugin README lists Playwright as an optional prerequisite
 
-## Conséquences
+## Consequences
 
-- L'installation du plugin ne suffit pas pour le skill `app-guide-generator` — une étape supplémentaire est nécessaire
-- Trade-off accepté : simplicité du plugin > completeness du guide generator
-- Si d'autres skills nécessitent Playwright à l'avenir, réévaluer cette décision
+- Installing the plugin is not sufficient for the `app-guide-generator` skill — an additional step is required
+- Accepted trade-off: plugin simplicity > guide generator completeness
+- If other skills require Playwright in the future, this decision should be re-evaluated
