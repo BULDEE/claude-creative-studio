@@ -84,7 +84,7 @@ Claude navigates the app via Playwright, captures screens, and assembles a compl
 ### Configure the image provider
 
 ```
-/claude-creative-studio:setup-provider
+/creative:setup-provider
 ```
 
 Guided configuration of the provider (free Gemini or paid OpenAI).
@@ -92,7 +92,7 @@ Guided configuration of the provider (free Gemini or paid OpenAI).
 ### Index brandbook references (RAG)
 
 ```
-/claude-creative-studio:ingest-references
+/creative:ingest-references
 ```
 
 Index your professional brandbook PDFs and image folders into a searchable knowledge base. The plugin uses these references to calibrate prompts, construction grids, and 3D material specs. Gemini Vision analyzes each page — free within the 1,500/day limit.
@@ -129,7 +129,7 @@ The plugin supports two professional image providers:
 ### Configuration
 
 ```
-/claude-creative-studio:setup-provider
+/creative:setup-provider
 ```
 
 Or manually:

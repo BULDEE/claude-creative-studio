@@ -11,7 +11,7 @@ Guides the user through indexing their brandbook references into the creative RA
 Before starting, verify:
 
 1. **GEMINI_API_KEY** — required for Gemini Vision page analysis
-   - If missing → redirect to `/claude-creative-studio:setup-provider`
+   - If missing → redirect to `/creative:setup-provider`
 2. **poppler** — required for PDF page extraction
    - Check: `command -v pdftoppm`
    - If missing → tell the user: `brew install poppler` (macOS) or `apt install poppler-utils` (Linux)

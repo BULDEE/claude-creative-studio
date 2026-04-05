@@ -17,11 +17,11 @@ Before any generation:
 const provider = process.env.CREATIVE_STUDIO_IMAGE_PROVIDER || "gemini";
 
 if (provider === "gemini" && !process.env.GEMINI_API_KEY) {
-  console.error("GEMINI_API_KEY missing. Run /claude-creative-studio:setup-provider");
+  console.error("GEMINI_API_KEY missing. Run /creative:setup-provider");
   process.exit(1);
 }
 if (provider === "openai" && !process.env.OPENAI_IMAGE_KEY) {
-  console.error("OPENAI_IMAGE_KEY missing. Run /claude-creative-studio:setup-provider");
+  console.error("OPENAI_IMAGE_KEY missing. Run /creative:setup-provider");
   process.exit(1);
 }
 ```

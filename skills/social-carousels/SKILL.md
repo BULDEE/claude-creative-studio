@@ -23,7 +23,7 @@ Validated examples and methodologies accessible via the `creative-knowledge` MCP
 
 ## Prerequisites
 
-- Image provider configured (`GEMINI_API_KEY` or `OPENAI_IMAGE_KEY`) — if missing, redirect to `/claude-creative-studio:setup-provider`
+- Image provider configured (`GEMINI_API_KEY` or `OPENAI_IMAGE_KEY`) — if missing, redirect to `/creative:setup-provider`
 - `brand.json` or visual universe provided by the user
 - API reference: see [image-provider-reference.md](../image-provider-reference.md) for generation templates and fallback
 

@@ -14,14 +14,14 @@ case "$PROVIDER" in
     if [[ -n "${GEMINI_API_KEY:-}" ]]; then
       OUTPUT+="Image provider: Gemini (Nano Banana) ✓"$'\n'
     else
-      OUTPUT+="⚠ Image provider: Gemini configured but GEMINI_API_KEY not set. Run /claude-creative-studio:setup-provider"$'\n'
+      OUTPUT+="⚠ Image provider: Gemini configured but GEMINI_API_KEY not set. Run /creative:setup-provider"$'\n'
     fi
     ;;
   openai)
     if [[ -n "${OPENAI_IMAGE_KEY:-}" ]]; then
       OUTPUT+="Image provider: OpenAI (gpt-image-1) ✓"$'\n'
     else
-      OUTPUT+="⚠ Image provider: OpenAI configured but OPENAI_IMAGE_KEY not set. Run /claude-creative-studio:setup-provider"$'\n'
+      OUTPUT+="⚠ Image provider: OpenAI configured but OPENAI_IMAGE_KEY not set. Run /creative:setup-provider"$'\n'
     fi
     ;;
   *)
@@ -52,7 +52,7 @@ if [[ -n "$BRAND_JSON" ]]; then
     OUTPUT+="branding/ folder: $ASSET_COUNT assets"$'\n'
   fi
 else
-  OUTPUT+="No brand.json detected. Use /claude-creative-studio:brand-pipeline to create one."$'\n'
+  OUTPUT+="No brand.json detected. Use /creative:brand-pipeline to create one."$'\n'
 fi
 
 # 3. Detect creative temperature

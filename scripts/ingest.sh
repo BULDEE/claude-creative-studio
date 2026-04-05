@@ -78,7 +78,7 @@ check_dep "node" "Install Node.js 18+"
 check_dep "sqlite3" "Install SQLite3"
 
 if [[ -z "${GEMINI_API_KEY:-}" ]]; then
-  echo "Error: GEMINI_API_KEY not set. Run: /claude-creative-studio:setup-provider" >&2
+  echo "Error: GEMINI_API_KEY not set. Run: /creative:setup-provider" >&2
   exit 1
 fi
 

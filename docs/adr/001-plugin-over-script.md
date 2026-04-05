@@ -16,7 +16,7 @@ Migrate to the official **Claude Code Plugin** format (Anthropic spec, October 2
 **For the plugin:**
 - One-command installation: `/plugin install BULDEE/claude-creative-studio`
 - Auto-configured MCP via `.mcp.json` (zero manual `claude mcp add`)
-- Auto-discovered and namespaced skills (`claude-creative-studio:design-logo`)
+- Auto-discovered and namespaced skills (`creative:design-logo`)
 - Distribution via official Anthropic marketplace or GitHub
 - Centralized updates — the user pulls a version, not re-runs a script
 - Shared convention with the Claude Code ecosystem

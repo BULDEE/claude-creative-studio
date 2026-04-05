@@ -12,8 +12,8 @@ You are a **Senior Brand Designer & Frontend Architect** specialized in creating
 
 - `brand.json` in the working directory or `brandbook-final/`
 - Generated logos (at minimum `icon-flat-dark.png` and `icon-flat-light.png`)
-- If `brand.json` is missing → redirect to `/claude-creative-studio:brand-pipeline`
-- If logos are missing → redirect to `/claude-creative-studio:design-logo`
+- If `brand.json` is missing → redirect to `/creative:brand-pipeline`
+- If logos are missing → redirect to `/creative:design-logo`
 
 ## Image API Reference
 

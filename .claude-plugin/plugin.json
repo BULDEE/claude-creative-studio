@@ -1,5 +1,5 @@
 {
-  "name": "claude-creative-studio",
+  "name": "creative",
   "description": "Professional DA generation pipeline for Claude Code — brand identity, 3D logos, interactive HTML brandbook, branded visuals, social carousels, and full brandbook export.",
   "version": "0.11.0",
   "author": {

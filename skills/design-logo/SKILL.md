@@ -56,7 +56,7 @@ Each concept must meet:
 Generate logos with the configured provider (see `userConfig.image_provider`).
 Full API reference: [image-provider-reference.md](../image-provider-reference.md).
 
-**Pre-flight**: check for `GEMINI_API_KEY` (if provider = gemini) or `OPENAI_IMAGE_KEY` (if provider = openai). If missing → redirect to `/claude-creative-studio:setup-provider`.
+**Pre-flight**: check for `GEMINI_API_KEY` (if provider = gemini) or `OPENAI_IMAGE_KEY` (if provider = openai). If missing → redirect to `/creative:setup-provider`.
 
 **Logo prompt template**:
 ```

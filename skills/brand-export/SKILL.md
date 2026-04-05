@@ -167,7 +167,7 @@ Square avatar icon for social media profiles. [LOGO_DESCRIPTION].
 ```css
 /* Brand Tokens — Generated from brand.json */
 /* Source: branding/brand.json */
-/* Do not edit manually — regenerate via /claude-creative-studio:brand-export */
+/* Do not edit manually — regenerate via /creative:brand-export */
 
 :root {
   /* Colors — Primary */

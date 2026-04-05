@@ -13,7 +13,7 @@ Generates visuals consistent with the current project's visual identity.
 - Provider configured via `userConfig.image_provider`:
   - `gemini` (default) → `GEMINI_API_KEY` required — free key: https://aistudio.google.com/apikey
   - `openai` → `OPENAI_IMAGE_KEY` required
-- If key is missing → redirect to `/claude-creative-studio:setup-provider`
+- If key is missing → redirect to `/creative:setup-provider`
 - Full API reference: see [image-provider-reference.md](../image-provider-reference.md)
 
 ## Available models
