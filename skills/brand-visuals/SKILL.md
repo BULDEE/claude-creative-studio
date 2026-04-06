@@ -1,5 +1,4 @@
 ---
-name: brand-visuals
 description: Generates branded visuals (hero images, illustrations, banners, OG images) via Gemini (Nano Banana) or OpenAI (gpt-image-1). Automatically detects the current project's DA via Tailwind config, CSS variables, brand.json, or CLAUDE.md. Triggered by 'visual', 'hero image', 'illustration', 'banner', 'OG image', 'brand asset', 'Nano Banana', 'branded visual', 'generate image'.
 argument-hint: [asset-type] [subject]
 ---

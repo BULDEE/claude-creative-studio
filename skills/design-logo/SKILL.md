@@ -1,5 +1,4 @@
 ---
-name: design-logo
 description: Generates professional logo concepts with a senior Art Director approach, including systematic 3D proposals. Supports Gemini (Nano Banana) and OpenAI (gpt-image-1). Uses validated DA examples from knowledge/logo-references/. Triggered by 'logo', 'design-logo', 'visual identity', 'branding', 'brand guidelines', '3D logo'.
 argument-hint: [company-name] [sector]
 ---

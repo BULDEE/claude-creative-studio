@@ -1,5 +1,4 @@
 ---
-name: brand-da
 description: Generates an interactive Design Application (DA) as a single-file HTML brandbook with 10 sections (symbol, palette, typography, dark/light components, specifications, landing page, data-viz, states, design tokens). Vercel/Linear quality level. Triggered by 'DA', 'design application', 'brandbook HTML', 'interactive brandbook', 'the-prism', 'DA interactive', 'generate DA'.
 argument-hint: [brand-name]
 ---

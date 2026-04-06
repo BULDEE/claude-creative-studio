@@ -1,5 +1,4 @@
 ---
-name: brand-export
 description: Exports the complete brandbook into a branding/ folder — logos (flat, lockup, mono, app-icons), 3D renders, social assets, brand-tokens.css, tailwind.preset.ts, interactive DA HTML, favicon.ico, icon.svg, README. Triggered by 'brand export', 'export branding', 'generate assets', 'branding folder', 'export brand', 'compile brand', 'export DA'.
 argument-hint: [brand-name]
 ---
@@ -375,6 +374,13 @@ If the export fails midway:
 
 ## Self-check before delivery
 
+Run the automated coherence check:
+```bash
+bash "${CLAUDE_PLUGIN_ROOT}/scripts/brand-coherence-check.sh" \
+  --brand branding/brand.json --branding-dir branding/
+```
+
+Fix any errors before presenting. Then verify manually:
 1. `branding/brand.json` is present and complete
 2. All logos in `branding/logos/` are generated (8 minimum)
 3. 3D renders in `branding/3d/` match the `creative_temperature`
@@ -385,6 +391,8 @@ If the export fails midway:
 8. No API keys are hardcoded in the files
 9. Relative paths in the DA HTML correctly point to `logos/`
 10. The `branding/` folder is self-contained (copy-paste ready)
+11. No orphaned files (.DS_Store, temp files, draft assets)
+12. No generation scripts left in the client project
 
 <avoid>
 - API keys in generated files

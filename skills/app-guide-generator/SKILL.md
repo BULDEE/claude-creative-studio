@@ -1,5 +1,4 @@
 ---
-name: app-guide-generator
 description: Generates comprehensive user guides with automatic screenshots via Playwright MCP. Triggered by 'guide', 'documentation', 'tutorial', 'walkthrough', 'onboarding', 'help doc', 'user manual', 'screenshot guide'.
 argument-hint: [app-url]
 ---
